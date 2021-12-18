@@ -7,6 +7,5 @@ virtualenv
 *.pyc
 gestao-tesouraria/__pycache__/
 gestao-tesouraria/tesouraria/__pycache__/
-static/
 keys/
 
