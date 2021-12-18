@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light h4" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand"></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="/categoria" class="nav-item nav-link">Categorias</a>
+                        <a href="/conta" class="nav-item nav-link">Contas</a>
+                        <a href="/movimento" class="nav-item nav-link" tabindex="-1">Lançamentos</a>
+<!--                        <a href="/relatorio" class="nav-item nav-link" tabindex="-1">Relatórios</a>-->
+                    </div>
+                    <div class="navbar-nav ms-auto">
+                        <a href="#" class="nav-item nav-link">Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <div id="rolatabela">
+        {% block main %} {% endblock %}
+        </div>
+        <div class="footer fixed-bottom">
+            {% block rodape %} {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

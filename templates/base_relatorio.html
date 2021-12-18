@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+        <div class="header fixed-header">
+            {% block header %} {% endblock %}
+        </div>
+        <div id="rolatabela">
+        {% block main %} {% endblock %}
+        </div>
+        <div class="footer fixed-bottom">
+            {% block rodape %} {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

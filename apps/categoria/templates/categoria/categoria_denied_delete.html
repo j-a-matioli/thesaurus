@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    <h1>Esta categoria possui conta relacionada!</h1>
+    <h2>Exclua as contas relacionada primeiro, depois exclua a categoria!</h2>
+    <a href="{% url 'list_categoria' %}" class="btn btn-success">Retornar</a>
+</form>
+{% endblock %}

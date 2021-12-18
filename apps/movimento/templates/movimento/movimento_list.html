@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load l10n %}
+{% load bootstrap %}
+
+{% block title %}
+    Movimento Caixa
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="row border border-dark rounded align bg-secondary text-white ">
+        <div class="col-sm-4 align-middle white">
+          <h5>Movimento de Caixa</h5>
+        </div>
+        <div class="col-sm-4 text-center">
+            <form METHOD="GET">
+                <label for="mes_corrente">Mês</label>
+                <input class = "form-control-sm" type="text" name="mes_corrente" id="mes_corrente"
+                       maxlength="2" size="2" value="{{ mes|default_if_none:''  }}" required>
+                <label for="ano_corrente">Ano</label>
+                <input class = "form-control-sm" type="text" name="ano_corrente" id="ano_corrente"
+                       maxlength="4" size="5" value="{{ ano|default_if_none:'' }}" required>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </div>
+        <div class="col-sm-2 ">
+          <a href="{% url 'create_movimento' %}" class="btn btn-success btn-sm float-end"> <i class="fa fa-plus"> Novo</i></a>
+        </div>
+        <div class="col-sm-2 ">
+          <a href="{% url 'relatorio_sintetico_pdf' %}" class="btn btn-info btn-sm float-end"> <i class="fas fa-print"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <th>Conta</th>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Observação</th>
+                <th> </th>
+                <th> </th>
+            </thead>
+
+            {% if object_list %}
+                <tbody>
+
+                {%  for movto in dados.qs %}
+                <tr>
+                   <td>
+                        <a href="{% url 'update_movimento' movto.id %}" >{{ movto.conta }}</a>
+                   </td>
+                   <td>{{ movto.data|date:"d/m/Y" }} </td>
+                    <td>
+                        {% if movto.conta.categoria.tipo == 1 %}
+                            Receita
+                        {% else %}
+                            Despesa
+                        {% endif %}
+                    </td>
+                   <td>{{ movto.valor }}</td>
+                   <td>{{ movto.observ }}</td>
+                   <td>
+                        <a href="{% url 'update_movimento' movto.id %}" class="btn btn-success"><i class="fa-solid fa-square-pen"></i></a>
+                   </td>
+                   <td>
+                        <a href="{% url 'delete_movimento' movto.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+                   </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+{% block rodape %}
+<div class="container">
+    <div class="row border border-dark rounded align bg-secondary text-white">
+        <div class="col-sm-2 align-left white">
+        </div>
+        <div class="col-sm-4 text-right white">
+            <h4>
+                Receita: RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
+            </h4>
+        </div>
+        <div class="col-sm-4 text-right white">
+            <h4>
+                Despesa: RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
+            </h4>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+{% endblock %}

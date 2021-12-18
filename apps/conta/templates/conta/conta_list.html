@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    CRUD de Contas
+{% endblock %}
+
+{% block main %}
+<h4>Cadastro de Contas</h4>
+    <a href="{% url 'create_conta' %}" class="btn btn-success"> <i class="fa fa-plus"></i></a>
+<table class="table">
+    <thead>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Categoria</th>
+        <th>Ativa</th>
+        <th> </th>
+        <th> </th>
+    </thead>
+    {% if object_list %}
+        <tbody>
+        {% for conta in object_list %}
+        <tr>
+           <td>
+                <a href="{% url 'update_conta' conta.id %}">{{ conta.nome }}</a>
+           </td>
+           <td>{{ conta.descricao }}</td>
+           <td>
+               {{ conta.categoria }}
+           </td>
+
+           <td>
+                {% if conta.status %}
+                    <i class="fa-solid fa-square-check"></i>
+                {% else %}
+                    <i class="fa-solid fa-ban"></i>
+                {% endif %}
+           </td>
+           <td>
+                <a href="{% url 'update_conta' conta.id %}" class="btn btn-success"><i class="fa-solid fa-square-pen"></i></a>
+           </td>
+           <td>
+                <a href="{% url 'delete_conta' conta.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+           </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+
+{% endblock %}

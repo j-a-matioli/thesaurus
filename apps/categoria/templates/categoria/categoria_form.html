@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block main %}
+<h1>Cadastro de Categoria</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'list_categoria' %}" class="btn btn-success">Cancelar</a>
+</form>
+{% endblock %}
+
