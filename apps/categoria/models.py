@@ -26,7 +26,7 @@ class Categoria(models.Model):
         return self.nome
 
     def get_absolute_url(self):
-        return reverse('categoria/list_categoria')
+        return reverse('list_categoria')
 
 
 

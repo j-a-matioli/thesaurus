@@ -27,8 +27,8 @@ class CategoriaDelete(DeleteView):
 
     def delete(self,*args, **kwargs):
         self.object = self.get_object()
-        success_url = reverse_lazy('categoria/list_categoria')
-        fail_url = reverse_lazy('categoria/denied_delete')
+        success_url = reverse_lazy('list_categoria')
+        fail_url = reverse_lazy('denied_delete')
         if self.object.conta_set.exists():
             return HttpResponseRedirect(fail_url)
 
@@ -37,6 +37,6 @@ class CategoriaDelete(DeleteView):
 
 
 def DeniedDeleteCategoria(request):
-    t = loader.get_template('categoria/categoria_denied_delete.html')
+    t = loader.get_template('categoria_denied_delete.html')
     c = {'foo': 'bar'}
     return HttpResponse(t.render(c, request))
