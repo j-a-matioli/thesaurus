@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ['tesouraria.herokuapp.com','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
 
 default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
