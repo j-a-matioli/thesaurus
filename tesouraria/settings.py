@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from dj_database_url import parse as dburl
+import  dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -92,7 +93,7 @@ DATABASES = {
     }
 }
 
-db_from_env = dburl.config(conn_max_age=500)
+db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # Password validation
