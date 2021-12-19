@@ -21,7 +21,7 @@
         {% for categoria in object_list %}
         <tr>
            <td>
-                <a href="/categoria/create/{{ categoria.id }}" >{{ categoria.nome }}</a>
+                <a href="{% url 'update_categoria' categoria.id %}" >{{ categoria.nome }}</a>
            </td>
            <td>{{ categoria.descricao }}</td>
            <td>
