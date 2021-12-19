@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
-from decouple import config
+
 from dj_database_url import parse as dburl
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['tesouraria.herokuapp.com','127.0.0.1','localhost']
 
 default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
-
 
 # Application definition
 
@@ -93,6 +92,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dburl.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
