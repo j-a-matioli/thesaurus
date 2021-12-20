@@ -52,7 +52,7 @@ class MovimentoList(ListView):
         return context
 
 class MovimentoCreate(CreateView):
-    template_name = 'apps/movimento/movimento_form.html'
+    template_name = 'movimento_form'
     model = Movimento
     form_class = MovimentoForm
     success_url = reverse_lazy("list_movimento")
@@ -60,7 +60,7 @@ class MovimentoCreate(CreateView):
 class MovimentoUpdate(UpdateView):
     model = Movimento
     fields = ['conta','data','valor','observ']
-    template_name = 'movimento/movimento_form.html'
+    template_name = 'movimento_form.html'
     success_url = reverse_lazy("list_movimento")
 
 class MovimentoDelete(DeleteView):
