@@ -24,7 +24,7 @@ class CategoriaUpdate(UpdateView):
 
 class CategoriaDelete(DeleteView):
     model = Categoria
-    success_url ="categoria/"
+    success_url = reverse_lazy('list_categoria')
 
 """     def delete(self,*args, **kwargs):
         return HttpResponseRedirect("<h1>Olaaaaaaaaaaaaaaaaaaaaaaaa</h1>")
