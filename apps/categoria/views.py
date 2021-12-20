@@ -30,7 +30,7 @@ class CategoriaDelete(DeleteView):
         self.object = self.get_object()
         success_url = reverse_lazy('list_categoria')
         fail_url = reverse_lazy('denied_delete')
-        if self.object.conta_set.exists():
+        if not self.object.conta_set.exists():
             return HttpResponseRedirect(fail_url)
 
         self.object.delete()
