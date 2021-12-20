@@ -10,7 +10,7 @@ from datetime import datetime
 
 class MovimentoList(ListView):
     model = Movimento
-    fields = ['conta', 'data', 'valor', 'observ']
+"""     fields = ['conta', 'data', 'valor', 'observ']
     template_name = reverse_lazy('list_movimento')
     ordering = ['-data']
     agora = datetime.now()
@@ -50,7 +50,7 @@ class MovimentoList(ListView):
         context['ano'] = filtro_ano
         context['dados'] = MovimentoFilter(self.request.GET, queryset=setAll)
         return context
-
+ """
 class MovimentoCreate(CreateView):
     template_name = 'movimento_form'
     model = Movimento
