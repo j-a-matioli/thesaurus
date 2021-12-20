@@ -65,11 +65,12 @@ class MovimentoUpdate(UpdateView):
 
 class MovimentoDelete(DeleteView):
     model = Movimento
+    success_url = reverse_lazy('list_movimento')
 
-    def delete(self,*args, **kwargs):
+"""     def delete(self,*args, **kwargs):
         self.object = self.get_object()
         success_url = reverse_lazy('list_movimento')
         self.object.delete()
         return HttpResponseRedirect(success_url)
-
+ """
 
