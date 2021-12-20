@@ -11,7 +11,7 @@ from datetime import datetime
 class MovimentoList(ListView):
     model = Movimento
     fields = ['conta', 'data', 'valor', 'observ']
-    template_name = 'movimento/movimento_list.html'
+    template_name = reverse_lazy('list_movimento')
     ordering = ['-data']
     agora = datetime.now()
     year = agora.year.__str__()
