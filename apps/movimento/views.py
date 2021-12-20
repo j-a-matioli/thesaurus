@@ -52,7 +52,7 @@ class MovimentoList(ListView):
         return context
 
 class MovimentoCreate(CreateView):
-    template_name = 'movimento/movimento_form.html'
+    template_name = 'apps/movimento/movimento_form.html'
     model = Movimento
     form_class = MovimentoForm
     success_url = reverse_lazy("list_movimento")

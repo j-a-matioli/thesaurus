@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block main %}
 <h1>Cadastro de Contas</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <br>
     <button type="submit" class="btn btn-primary">Salvar</button>
     <a href="{% url 'list_conta' %}" class="btn btn-success">Cancelar</a>
