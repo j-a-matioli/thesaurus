@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
-{% load bootstrap %}
 
 {% block main %}
 <h1>Cadastro de Contas</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form|bootstrap }}
+    {{ form }}
     <br>
     <button type="submit" class="btn btn-primary">Salvar</button>
     <a href="{% url 'list_conta' %}" class="btn btn-success">Cancelar</a>
