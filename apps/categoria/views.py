@@ -24,8 +24,9 @@ class CategoriaUpdate(UpdateView):
 
 class CategoriaDelete(DeleteView):
     model = Categoria
+    success_url ="categoria/"
 
-    def delete(self,*args, **kwargs):
+"""     def delete(self,*args, **kwargs):
         return HttpResponseRedirect("<h1>Olaaaaaaaaaaaaaaaaaaaaaaaa</h1>")
         self.object = self.get_object()
         success_url = reverse_lazy('list_categoria')
@@ -35,7 +36,7 @@ class CategoriaDelete(DeleteView):
 
         self.object.delete()
         return HttpResponseRedirect(success_url)
-
+ """
 
 def DeniedDeleteCategoria(request):
     t = loader.get_template('categoria_denied_delete.html')
