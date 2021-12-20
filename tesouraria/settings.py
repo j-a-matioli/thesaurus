@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'i18n_app',
     'bootstrap4',
     'crispy_forms',
     'apps.categoria',
