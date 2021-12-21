@@ -11,6 +11,7 @@ from django.db.models import Sum
 from .filters import RelatorioSinteticoFilter
 from django.views.generic import ListView, TemplateView
 from django.urls import reverse_lazy
+import locale
 
 class relatorio_sintetico_pdf(TemplateView):
     model = Movimento
@@ -24,6 +25,7 @@ class relatorio_sintetico_pdf(TemplateView):
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
+        locale.setlocale(locale.LC_ALL, 'pt_BR')
 
     def get(self, request):
         contexto = self.get_context_data()
@@ -74,9 +76,9 @@ class relatorio_sintetico_pdf(TemplateView):
             .order_by('conta__categoria__nome')
 
         context['lancamentos']=setAll
-        context['totalReceita'] = totalReceita
-        context['totalDespesa'] = totalDespesa
-        context['totalSaldo'] = totalSaldo
+        context['totalReceita'] = locale.currency(totalReceita)
+        context['totalDespesa'] = locale.currency(totalDespesa)
+        context['totalSaldo'] = locale.currency(totalSaldo)
         context['sumario'] = sumario
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
