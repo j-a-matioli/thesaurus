@@ -17,8 +17,8 @@
         <table class="table">
             <thead>
                     <th>Conta</th>
-                    <th>Data</th>
                     <th>Categoria</th>
+                    <th>Data</th>
                     <th>Valor</th>
                     <th>Observação</th>
             </thead>
@@ -26,8 +26,8 @@
        {% for p in lancamentos %}
                  <tr>
                     <td>{{ p.conta }}</td>
-                    <td>{{ p.data|date:"d/m/Y" }} </td>
                     <td>{{ p.conta.categoria }}</td>
+                    <td>{{ p.data|date:"d/m/Y" }} </td>
                     <td>
                      {%if p.conta.categoria.tipo == 'Despesa'%}
                         <h3>-</h3>
@@ -83,5 +83,5 @@
     {% endfor %}
     </table>
 <hr>
-Tesoureira: <strong>Luzia Bueno Matioli</strong>
+Tesoureira: <strong><i>Luzia Bueno Matioli</i></strong>
 {% endblock %}
