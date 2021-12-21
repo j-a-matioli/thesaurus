@@ -48,8 +48,6 @@ class relatorio_sintetico_pdf(TemplateView):
         filtro_mes = self.request.GET.get('mes_corrente')
         filtro_ano = self.request.GET.get('ano_corrente')
 
-        locale.setlocale(locale.LC_ALL, '')
-
         if not filtro_mes:
             filtro_mes = self.request.session.get('mes_corrente')
         else:
@@ -77,9 +75,9 @@ class relatorio_sintetico_pdf(TemplateView):
             .order_by('conta__categoria__nome')
 
         context['lancamentos']=setAll
-        context['totalReceita'] = locale.currency(totalReceita)
-        context['totalDespesa'] = locale.currency(totalDespesa)
-        context['totalSaldo'] = locale.currency(totalSaldo)
+        context['totalReceita'] = totalReceita
+        context['totalDespesa'] = totalDespesa
+        context['totalSaldo'] = totalSaldo
         context['sumario'] = sumario
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
