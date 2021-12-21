@@ -25,7 +25,6 @@ class relatorio_sintetico_pdf(TemplateView):
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
-        locale.setlocale(locale.LC_ALL, 'pt_BR')
 
     def get(self, request):
         contexto = self.get_context_data()
@@ -48,6 +47,8 @@ class relatorio_sintetico_pdf(TemplateView):
         context = super().get_context_data(**kwargs)
         filtro_mes = self.request.GET.get('mes_corrente')
         filtro_ano = self.request.GET.get('ano_corrente')
+
+        locale.setlocale(locale.LC_ALL, '')
 
         if not filtro_mes:
             filtro_mes = self.request.session.get('mes_corrente')
