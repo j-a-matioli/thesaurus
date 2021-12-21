@@ -10,8 +10,9 @@ from datetime import datetime
 
 class MovimentoList(ListView):
     model = Movimento
-"""     fields = ['conta', 'data', 'valor', 'observ']
-    template_name = reverse_lazy('list_movimento')
+    fields = ['conta', 'data', 'valor', 'observ']
+#    template_name = reverse_lazy('list_movimento')
+    template_name = 'list_movimento'
     ordering = ['-data']
     agora = datetime.now()
     year = agora.year.__str__()
@@ -48,14 +49,23 @@ class MovimentoList(ListView):
         context['totalDespesa'] = totalDespesa
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
-        context['dados'] = MovimentoFilter(self.request.GET, queryset=setAll)
+        if(setAll):
+            context['dados'] = MovimentoFilter(self.request.GET, queryset=setAll)
+        else:
+            context['dados'] = None
+
         return context
- """
+
 class MovimentoCreate(CreateView):
-    template_name = 'movimento_form'
     model = Movimento
-    form_class = MovimentoForm
-    success_url = reverse_lazy("list_movimento")
+    fields = ['conta','data','valor','observ']
+    # template_name = 'movimento_form'
+    # form_class = MovimentoForm
+    success_url = reverse_lazy("create_movimento")
+
+    def form_valid(self, form):
+        form.save(self)
+        return super(MovimentoCreate,self).form_valid(form)
 
 class MovimentoUpdate(UpdateView):
     model = Movimento

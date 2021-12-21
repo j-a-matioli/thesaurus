@@ -1,0 +1,84 @@
+{% extends 'base_relatorio.html' %}
+{% load humanize %}
+{% load l10n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Movimento Caixa
+{% endblock %}
+
+{% block header %}
+<h2>Balancete do mês {{ mes }} de {{ ano }}</h2>
+{% endblock %}
+
+{% block main %}
+    {% if lancamentos %}
+        <table class="table">
+            <thead>
+                    <th>Conta</th>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Observação</th>
+            </thead>
+            <tbody>
+       {% for p in lancamentos %}
+                 <tr>
+                    <td>{{ p.conta }}</td>
+                    <td>{{ p.data|date:"d/m/Y" }} </td>
+                    <td>{{ p.conta.categoria }}</td>
+                    <td>
+                     {%if p.conta.categoria.tipo == 'Despesa'%}
+                        <h3>-</h3>
+                     {% endif %}
+                        {{ p.valor }}</td>
+                    <td>{{ p.obs }}</td>
+                </tr>
+        {% endfor %}
+           </tbody>
+        </table>
+    {% endif %}
+    <br><br>
+    <h2>RESUMO:</h2>
+    <table class="table">
+        <tr>
+            <td>
+                    Total de Receitas
+            </td>
+            <td>
+                    RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    Total de Despesas
+            </td>
+            <td>
+                    RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    Saldo Final
+            </td>
+            <td>
+                    RS {{ totalSaldo|floatformat:2|intcomma }}
+            </td>
+        </tr>
+    </table>
+<br>
+    <h2>SUB-TOTAL POR CATEGORIA:</h2>
+<br>
+    <table class="table">
+    {% for s in sumario %}
+        <tr>
+        <td>
+                {{ s.conta__categoria__nome }}
+        </td>
+        <td>
+                R$ {{ s.total|floatformat:2|intcomma }}
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

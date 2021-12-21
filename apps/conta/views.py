@@ -13,7 +13,6 @@ class ContaCreate(CreateView):
     model = Conta
     fields = ['nome','descricao','categoria','status']
 
-
     def form_valid(self, form):
         form.save(self)
         return super(ContaCreate,self).form_valid(form)

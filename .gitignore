@@ -4,8 +4,6 @@ venv
 virtualenv
 .venv
 .virtualenv
-*.pyc
-gestao-tesouraria/__pycache__/
-gestao-tesouraria/tesouraria/__pycache__/
+__pycache__/
 keys/
 

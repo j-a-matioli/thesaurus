@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'apps.categoria',
     'apps.conta',
     'apps.movimento',
+    'apps.relatorio',
     'apps.core',
 ]
 

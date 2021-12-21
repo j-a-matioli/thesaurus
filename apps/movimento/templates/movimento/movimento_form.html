@@ -1,52 +1,63 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block main %}
- <form method="post" novalidate>
-  {% csrf_token %}
 
-  {{ form.non_field_errors }}
-
-  {{ form.source.errors }}
-  {{ form.source }}
-
-  <table border="1">
-
-      <tr>
-        <th>{{ form.conta.label_tag }}</th>
-        <th>{{ form.data.label_tag }}</th>
-        <th>{{ form.valor.label_tag }}</th>
-      </tr>
-
-      <tr>
-        <td>
-          {{ form.conta.errors }}
-          {{ form.conta }}
-        </td>
-        <td>
-          {{ form.data.errors }}
-          {{ form.data }}
-        </td>
-        <td>
-          {{ form.valor.errors }}
-          {{ form.valor }}
-          <br />
-          {{ form.valor.help_text }}
-        </td>
-      </tr>
-      <tr>
-        <th>{{ form.observ.label_tag }}</th>
-      </tr>
-      <tr>
-      <td colspan="3">
-          {{ form.observ.errors }}
-          {{ form.observ }}
-          <br />
-          {{ form.observ.help_text }}
-        </td>
-      </tr>
-  </table>
-
-  <button type="submit" class="btn btn-success">Salvar</button>
-  <a href="{% url 'list_movimento' %}" class="btn btn-secondary">Cancelar</a>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'list_movimento' %}" class="btn btn-success">Cancelar</a>
 </form>
+
+
+<!-- <form method="post" novalidate>-->
+<!--  {% csrf_token %}-->
+
+<!--  {{ form.non_field_errors }}-->
+
+<!--  {{ form.source.errors }}-->
+<!--  {{ form.source }}-->
+
+<!--  <table border="1">-->
+
+<!--      <tr>-->
+<!--        <th>{{ form.conta.label_tag }}</th>-->
+<!--        <th>{{ form.data.label_tag }}</th>-->
+<!--        <th>{{ form.valor.label_tag }}</th>-->
+<!--      </tr>-->
+
+<!--      <tr>-->
+<!--        <td>-->
+<!--          {{ form.conta.errors }}-->
+<!--          {{ form.conta }}-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          {{ form.data.errors }}-->
+<!--          {{ form.data }}-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          {{ form.valor.errors }}-->
+<!--          {{ form.valor }}-->
+<!--          <br />-->
+<!--          {{ form.valor.help_text }}-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>{{ form.observ.label_tag }}</th>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--      <td colspan="3">-->
+<!--          {{ form.observ.errors }}-->
+<!--          {{ form.observ }}-->
+<!--          <br />-->
+<!--          {{ form.observ.help_text }}-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--  </table>-->
+
+<!--  <button type="submit" class="btn btn-success">Salvar</button>-->
+<!--  <a href="{% url 'list_movimento' %}" class="btn btn-secondary">Cancelar</a>-->
+<!--</form>-->
 {% endblock %}
