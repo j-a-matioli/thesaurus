@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}
+    Fechamento de Mês
+{% endblock %}
+
+{% block main %}
+  <h1>Renew: {{ mes_fechamento.book.title }}</h1>
+  <p>{% if mes_fechamento.fechado %} class="text-danger"{% endif %}>Due date: {{ mes_fechamento.data }}</p>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

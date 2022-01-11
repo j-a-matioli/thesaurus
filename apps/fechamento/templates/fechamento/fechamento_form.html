@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'list_fechamento' %}" class="btn btn-success">Cancelar</a>
+</form>
+{% endblock %}

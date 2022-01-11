@@ -21,6 +21,7 @@ urlpatterns = [
     path('categoria/', include('apps.categoria.urls')),
     path('conta/', include('apps.conta.urls')),
     path('movimento/', include('apps.movimento.urls')),
+    path('fechamento/', include('apps.fechamento.urls')),
     path('relatorio/', include('apps.relatorio.urls')),
     path('admin/', admin.site.urls),
 ]
