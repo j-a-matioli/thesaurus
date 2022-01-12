@@ -15,11 +15,13 @@ fonttools==4.28.5
 greenlet==1.1.2
 gunicorn==20.1.0
 html5lib==1.1
+listview==0.1.0
 Pillow==8.4.0
 psycopg2==2.9.2
 pycparser==2.21
 pydyf==0.1.2
 pyphen==0.11.0
+python-dateutil==2.8.2
 python-decouple==3.5
 six==1.16.0
 soupsieve==2.3.1
