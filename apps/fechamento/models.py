@@ -9,8 +9,6 @@ FECHADO_CHOICES = [
 
 class Fechamento(models.Model):
     id = models.BigAutoField(primary_key=True)
-    # mes = models.IntegerField(null=False)
-    # ano = models.IntegerField(null=False)
     data = models.DateTimeField(default=None, null=True)
     saldo_anterior = models.DecimalField(decimal_places=2,max_digits=13)
     entradas = models.DecimalField(default=0.0,decimal_places=2,max_digits=13)
