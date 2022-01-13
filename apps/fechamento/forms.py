@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class FechamentoForm(forms.Form):
-    data_renovacao = forms.DateField(widget=forms.widgets.DateInput(format="%m/%d/%Y"),help_text="Enter a date between now and 4 weeks (default 3).")
+    data = forms.DateField(widget=forms.widgets.DateInput(format="%m/%d/%Y"),help_text="Enter a date between now and 4 weeks (default 3).")
     def clean_data_renovacao(self):
         data = self.cleaned_data['data_renovacao']
 

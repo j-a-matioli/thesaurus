@@ -15,7 +15,7 @@
             <th>Entradas</th>
             <th>Saídas</th>
             <th>Saldo do Mês</th>
-            <th colspan="4" class="text-center">Ações</th>
+            <th colspan="3" class="text-center">Ações</th>
         </thead>
         {% if object_list %}
             <tbody>
@@ -37,20 +37,25 @@
 
                <td>
                     {% if f.fechado %}
-                        <a href=#" class="btn btn-success">Reabrir</a>
+                        <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Reabrir</a>
                     {% else %}
-                        <a href=#" class="btn btn-success">Encerrar</a>
+                        <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Encerrar</a>
                     {% endif %}
 
                </td>
                <td>
-                    <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success"><i class="fa-solid fa-arrows-rotate"></i></a>
+                    {% if f.fechado %}
+                        <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success disabled" ><i class="fa-solid fa-square-pen"></i></a>
+                    {% else %}
+                        <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success" ><i class="fa-solid fa-square-pen"></i></a>
+                    {% endif %}
                </td>
                <td>
-                    <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success"><i class="fa-solid fa-square-pen"></i></a>
-               </td>
-               <td>
-                    <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+                    {% if f.fechado %}
+                        <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success disabled"><i class="fa-solid fa-trash"></i></a>
+                    {% else %}
+                        <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+                    {% endif %}
                </td>
             </tr>
             {% endfor %}

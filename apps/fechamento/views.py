@@ -1,11 +1,13 @@
+from django.db.models import fields
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 from decimal import Decimal
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from dateutil import relativedelta
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.urls import reverse
 
 from apps.fechamento.forms import FechamentoForm
@@ -13,37 +15,44 @@ from apps.fechamento.models import Fechamento
 
 class FechamentoList(ListView):
     model = Fechamento
+    
+def FechamentoEncerrar(request,pk):
+    model = Fechamento
+    registro = get_object_or_404(Fechamento, pk=pk)
+    if registro and (request.method == "GET"):
+        model.objects.filter(pk=pk).update(fechado=not registro.fechado, saldo=(registro.saldo_anterior+(registro.entradas-registro.saidas)))
+    return HttpResponseRedirect(reverse('list_fechamento') )
+
+def FechamentoCriar(request):
+    model = Fechamento
+    data = date.today()
+    saldo_anterior = 0.0
+    saldo = 0
+    
+    if Fechamento.objects.first():
+        lastReg = model.objects.latest('data')
+        data = lastReg.data + relativedelta.relativedelta(months=1, day=1)
+        saldo_anterior = lastReg.saldo
+        saldo = lastReg.saldo
+        print(data, saldo_anterior,saldo)     
+               
+    newReg = Fechamento(data=data, saldo_anterior=saldo_anterior,saldo=saldo)
+    newReg.save()
+    
+    return HttpResponseRedirect(reverse('list_fechamento') )
 
 class FechamentoCreate(CreateView):
     model = Fechamento
-    ultimo = Fechamento.objects.last()
-    if ultimo:
-        str_data_ultimo = '01/' + ultimo.mes.__str__() + '/' + ultimo.ano.__str__()
-        prx_data = ultimo.data + relativedelta(months=1)
-    else:
-        _mes = datetime.today().month.__str__()
-        _ano = datetime.today().year.__str__()
-        str_data_ultimo = '01/'+_mes+'/'+_ano
-        data_ultimo = datetime.strptime(str_data_ultimo, '%d/%m/%Y').date()
-        prx_data = data_ultimo + relativedelta(months=1)
-
-    if ultimo:
-        initial = {'id':ultimo.id,"mes": prx_data.month,'ano':prx_data.year, "data":prx_data.date(),
-                   'saldo_anterior':(ultimo.saldo_anterior + (ultimo.entradas - ultimo.saidas)) }
-    else:
-        initial = {"data":prx_data.date()}
-
     fields = ['id','data','saldo_anterior']
 
+    class Meta:
+        readonly = ['data', ]
+    
     def form_valid(self, form):
-
         form.save(self)
         return super(FechamentoCreate,self).form_valid(form)
 
-    # def form_valid(self, form):
-    #     fecha = get_object_or_404(Fechamento, pk=self.kwargs['id'])
-    #     form.instance.fechamento = fecha
-    #     return super(FechamentoCreate, self).form_valid(form)
+
 
 
 class FechamentoUpdate(UpdateView):
