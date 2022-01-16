@@ -65,7 +65,7 @@ class relatorio_sintetico_pdf(TemplateView):
 
         setAll = Movimento.objects.filter(data__year=filtro_ano).\
             filter(data__month=filtro_mes).\
-            order_by('conta__categoria','data','conta')
+            order_by('data','conta__categoria','conta')
             
         setReceita = Movimento.objects.filter(conta__categoria__tipo=1).filter(data__year=filtro_ano).filter(
             data__month=filtro_mes)
