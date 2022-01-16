@@ -45,7 +45,10 @@ class MovimentoList(ListView):
             data__month=filtro_mes)
         totalReceita = setReceita.aggregate(Sum('valor'))
         totalDespesa = setDespesa.aggregate(Sum('valor'))
-        totalSaldo = setReceita.aggregate(Sum('valor')).get('valor__sum') + setDespesa.aggregate(Sum('valor')).get('valor__sum')
+        if totalReceita and totalDespesa:
+            totalSaldo = setReceita.aggregate(Sum('valor')).get('valor__sum') + setDespesa.aggregate(Sum('valor')).get('valor__sum')
+        else:
+            totalSaldo = 0.0
 
         
         context['totalReceita'] = totalReceita
