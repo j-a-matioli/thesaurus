@@ -11,14 +11,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+# from pathlib import Pdateath
 from pathlib import Path
-
+ 
 from dj_database_url import parse as dburl
 import  dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+DECIMAL_SEPARATOR = ','
+USE_THOUSAND_SEPARATOR = True
 
 
 # Quick-start development settings - unsuitable for production

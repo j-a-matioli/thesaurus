@@ -1,6 +1,6 @@
+from ast import FormattedValue
 import os
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
 from apps.movimento.models import Movimento
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -9,9 +9,8 @@ import tempfile
 from datetime import datetime
 from django.db.models import Sum
 from .filters import RelatorioSinteticoFilter
-from django.views.generic import ListView, TemplateView
-from django.urls import reverse_lazy
-import locale
+from django.views.generic import TemplateView
+from django.db.models import F
 
 class relatorio_sintetico_pdf(TemplateView):
     model = Movimento
@@ -27,20 +26,24 @@ class relatorio_sintetico_pdf(TemplateView):
         self.request.session['mes_corrente'] = self.month
 
     def get(self, request):
-        contexto = self.get_context_data()
-        html =  render_to_string(self.template_name,contexto)
-        documento_html = HTML(string=html, base_url=request.build_absolute_uri())
-        document = documento_html.render()
-        if len(document.pages) > 1:
-            for page in document.pages[1:]:
-                str(page)
-            pdf = document.write_pdf()
-        else:
-            pdf = document.write_pdf()
-
-        fs = FileSystemStorage()
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="rel_sintetico.pdf"'
+        response = None
+        try:
+            contexto = self.get_context_data()
+            html_string =  render_to_string(self.template_name,contexto)
+            html = HTML(string=html_string)
+            html.write_pdf(target='/tmp/relatorio_sintetico.pdf');
+            fs = FileSystemStorage('/tmp')
+            with fs.open('relatorio_sintetico.pdf') as pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="relatorio_sintetico.pdf"'
+            return response
+        except OSError as err:
+            print("OS error: {0}".format(err))
+        except ValueError:
+            print("Blau blau!!!.")
+        except BaseException as err:
+            print(f"Unexpected {err=}, {type(err)=}")
+            raise            
         return response
 
     def get_context_data(self, **kwargs):
@@ -58,17 +61,21 @@ class relatorio_sintetico_pdf(TemplateView):
         else:
             self.request.session['ano_corrente']=filtro_ano
 
+        print(filtro_mes,"/",filtro_ano)
+
         setAll = Movimento.objects.filter(data__year=filtro_ano).\
             filter(data__month=filtro_mes).\
             order_by('conta__categoria','data','conta')
-
+            
         setReceita = Movimento.objects.filter(conta__categoria__tipo=1).filter(data__year=filtro_ano).filter(
             data__month=filtro_mes)
+        
         setDespesa = Movimento.objects.filter(conta__categoria__tipo=2).filter(data__year=filtro_ano).filter(
             data__month=filtro_mes)
+                    
         totalReceita = setReceita.aggregate(Sum('valor'))
         totalDespesa = setDespesa.aggregate(Sum('valor'))
-        totalSaldo = setReceita.aggregate(Sum('valor')).get('valor__sum') - setDespesa.aggregate(Sum('valor')).get('valor__sum')
+        totalSaldo = setReceita.aggregate(Sum('valor')).get('valor__sum') + setDespesa.aggregate(Sum('valor')).get('valor__sum')
 
         sumario = setAll.values('conta__categoria__nome')\
             .annotate(total=Sum('valor'))\
@@ -81,7 +88,8 @@ class relatorio_sintetico_pdf(TemplateView):
         context['sumario'] = sumario
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
-        context['dados'] = RelatorioSinteticoFilter(self.request.GET, queryset=setAll)
+        context['data_emissao'] = self.agora
+        context['dados'] = setAll #RelatorioSinteticoFilter(self.request.GET, queryset=setAll)
         return context
 
 

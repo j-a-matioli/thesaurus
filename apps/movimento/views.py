@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.sessions.models import Session
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from apps.fechamento.models import Fechamento
 from apps.movimento.forms import MovimentoForm
 from apps.movimento.models import Movimento
 from django.db.models import Sum, Value
@@ -11,13 +12,12 @@ from datetime import datetime
 class MovimentoList(ListView):
     model = Movimento
     fields = ['conta', 'data', 'valor', 'observ']
-#    template_name = reverse_lazy('list_movimento')
     template_name = 'list_movimento'
     ordering = ['-data']
     agora = datetime.now()
     year = agora.year.__str__()
     month = agora.month.__str__()
-
+    
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
@@ -45,8 +45,12 @@ class MovimentoList(ListView):
             data__month=filtro_mes)
         totalReceita = setReceita.aggregate(Sum('valor'))
         totalDespesa = setDespesa.aggregate(Sum('valor'))
+        totalSaldo = setReceita.aggregate(Sum('valor')).get('valor__sum') + setDespesa.aggregate(Sum('valor')).get('valor__sum')
+
+        
         context['totalReceita'] = totalReceita
         context['totalDespesa'] = totalDespesa
+        context['totalSaldo'] = totalSaldo
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
         if(setAll):
@@ -54,23 +58,29 @@ class MovimentoList(ListView):
         else:
             context['dados'] = None
 
+        fechaData = Fechamento.objects.filter(data__month=filtro_mes, data__year=filtro_ano)
+        if fechaData:
+            context['fechado'] = fechaData[0].fechado
+        else:
+            context['fechado'] = False
+
+
         return context
 
 class MovimentoCreate(CreateView):
     model = Movimento
     fields = ['conta','data','valor','observ']
-    # template_name = 'movimento_form'
-    # form_class = MovimentoForm
     success_url = reverse_lazy("create_movimento")
 
     def form_valid(self, form):
+        if form.instance.conta.categoria.tipo==2:
+            form.instance.valor *= -1;
         form.save(self)
         return super(MovimentoCreate,self).form_valid(form)
 
 class MovimentoUpdate(UpdateView):
     model = Movimento
     fields = ['conta','data','valor','observ']
-    #template_name = 'movimento_form.html'
     success_url = reverse_lazy("list_movimento")
 
 class MovimentoDelete(DeleteView):

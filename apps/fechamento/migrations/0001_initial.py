@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('nome', models.CharField(db_index=True, max_length=50, unique=True)),
-                ('mes_ano', models.DateField()),
+                ('data', models.DateField()),
                 ('saldo_anterior', models.DecimalField(decimal_places=2, default=0.0, max_digits=13)),
                 ('entradas', models.DecimalField(decimal_places=2, default=0.0, max_digits=13)),
                 ('saidas', models.DecimalField(decimal_places=2, default=0.0, max_digits=13)),

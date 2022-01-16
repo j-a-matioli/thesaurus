@@ -4,82 +4,107 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Movimento Caixa
+Movimento Caixa
 {% endblock %}
 
 {% block header %}
     <h1>Paróquia São Benedito - Limeira</h1>
-    <h2>Balancete do mês {{ mes }} de {{ ano }}</h2>
 {% endblock %}
 
 {% block main %}
-    {% if lancamentos %}
-        <table class="table">
-            <thead>
-                    <th>Conta</th>
-                    <th>Categoria</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                    <th>Observação</th>
-            </thead>
-            <tbody>
-       {% for p in lancamentos %}
-                 <tr>
-                    <td>{{ p.conta }}</td>
-                    <td>{{ p.conta.categoria }}</td>
-                    <td>{{ p.data|date:"d/m/Y" }} </td>
-                    <td>
-                     {%if p.conta.categoria.tipo == 'Despesa'%}
-                        <h3>-</h3>
-                     {% endif %}
-                        {{ p.valor }}</td>
-                    <td>{{ p.obs }}</td>
-                </tr>
+<h2>Balancete do mês {{ mes }}/{{ ano }}</h2>
+{% if lancamentos %}
+<table class="bordada">
+    <thead>
+        <th style="width: 40%">Conta</th>
+        <th style="width: 20%">Categoria</th>
+        <th style="text-align: center; width: 20%">Data</th>
+        <th style="text-align: right; width: 20%">Valor (R$)</th>
+    </thead>
+    <tbody>
+        {% for p in lancamentos %}
+        <tr>
+            <td>{{ p.conta }}</td>
+            <td>{{ p.conta.categoria }}</td>
+            <td style="text-align: center; ">{{ p.data|date:"d/m/Y" }} </td>
+            <td style="text-align: right;">
+                {%if p.conta.categoria.tipo == 'Despesa'%}
+                <h3>-</h3>
+                {% endif %}
+                {{ p.valor }}
+            </td>
+        </tr>
         {% endfor %}
-           </tbody>
-        </table>
-    {% endif %}
-    <br><br>
-    <h2>RESUMO:</h2>
-    <table class="table">
-        <tr>
-            <td>
-                    Total de Receitas
-            </td>
-            <td>
-                    RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    Total de Despesas
-            </td>
-            <td>
-                    RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    Saldo Final
-            </td>
-            <td>
-                    RS {{ totalSaldo|floatformat:2|intcomma }}
-            </td>
-        </tr>
-    </table>
+    </tbody>
+</table>
+{% endif %}
+<br><br>
+<h2>Resumo:</h2>
+<table class="bordada">
+    <tr>
+        <td>
+            Total de Receitas
+        </td>
+        <td>
+            RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Total de Despesas
+        </td>
+        <td>
+            RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Saldo Final
+        </td>
+        <td>
+            RS {{ totalSaldo|floatformat:2|intcomma }}
+        </td>
+    </tr>
+</table>
 <br>
-    <h2>SUB-TOTAL POR CATEGORIA:</h2>
+<h2>Sub-total por categoria:</h2>
 <br>
-    <table class="table">
+<table class="bordada">
     {% for s in sumario %}
-        <tr>
+    <tr>
         <td>
-                {{ s.conta__categoria__nome }}
+            {{ s.conta__categoria__nome }}
         </td>
         <td>
-                R$ {{ s.total|floatformat:2|intcomma }}
+            R$ {{ s.total|floatformat:2|intcomma }}
         </td>
-        </tr>
+    </tr>
     {% endfor %}
+</table>
+{% endblock %}
+
+{% block rodape %}
+<!-- rodape -->
+    <br><br><br>
+    <table class="table">
+        <tr>
+            <td style="text-align: center; width: 40%; border-top:1px solid black;"><b>Pe. Ciro Sinotti</b></td>
+            <td></td>
+            <td style="text-align: center; width: 40%; border-top:1px solid black;"><b>Luzia Matioli</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Pároco</td>
+            <td></td>
+            <td style="text-align: center;">Tesoureira</td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td colspan="3">
+                <p style="text-align: center; font-size:smaller;"><i>Limeira,{{ data_emissao }}</i></p>
+
+            </td>
+        </tr>
     </table>
+
+
 {% endblock %}
