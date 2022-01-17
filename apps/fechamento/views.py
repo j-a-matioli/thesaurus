@@ -56,11 +56,14 @@ def FechamentoRefresh(request, pk):
 
                 totalEntradas = setReceita.aggregate(Sum('valor'))
                 totalSaidas = setDespesa.aggregate(Sum('valor'))
+                if totalEntradas['valor__sum']==None:
+                    totalEntradas['valor__sum']=Decimal(0.0)
+                if totalSaidas['valor__sum']==None:
+                    totalSaidas['valor__sum']=Decimal(0.0)
                 registro.entradas = totalEntradas['valor__sum']
                 registro.saidas = totalSaidas['valor__sum']
-                print(registro.saldo_anterior, totalEntradas['valor__sum'],totalSaidas['valor__sum'])
-                if totalEntradas and totalSaidas:
-                    registro.saldo = registro.saldo_anterior + (totalEntradas['valor__sum'] + totalSaidas['valor__sum'])
+                    
+                registro.saldo = registro.saldo_anterior + (totalEntradas['valor__sum'] + totalSaidas['valor__sum'])
             else:
                 registro.entradas = 0
                 registro.saidas = 0
