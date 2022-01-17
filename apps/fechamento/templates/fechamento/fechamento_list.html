@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load l10n %}
 {% block title %}
-    Fechamento de Mês
+Fechamento de Mês
 {% endblock %}
 
 {% block main %}
 <div class="row justify-content-center">
-    <h4 class="text-center">Resumo do Movimento de Caixa</h4>
-    <p class="text-center"><a href="{% url 'create_fechamento' %}" class="btn btn-success"><i class="fa fa-plus"></i> Abrir mês</a></p>
+    <p class="text-center"><a href="{% url 'create_fechamento' %}" class="btn btn-success"><i class="fa fa-plus"></i>
+            Iniciar novo mês</a></p>
     <table class="table table-striped w-auto center">
         <thead>
             <th>Mês/Ano</th>
@@ -15,54 +15,66 @@
             <th>Entradas</th>
             <th>Saídas</th>
             <th>Saldo do Mês</th>
-            <th colspan="3" class="text-center">Ações</th>
+            <th colspan="4" class="text-center">Ações</th>
         </thead>
         {% if object_list %}
-            <tbody>
+        <tbody>
             {% for f in object_list %}
             <tr>
-               <td>
+                <td>
                     {{f.data|date:'m/Y'}}
-               </td>
-               <td>{{ f.saldo_anterior }}</td>
-               <td>
-                   {{ f.entradas }}
-               </td>
-               <td>
-                   {{ f.saidas }}
-               </td>
-               <td>
-                   {{ f.getSaldoAtual }}
-               </td>
+                </td>
+                <td>{{ f.saldo_anterior }}</td>
+                <td>
+                    {{ f.entradas }}
+                </td>
+                <td>
+                    {{ f.saidas }}
+                </td>
+                <td>
+                    {{ f.saldo }}
+                </td>
+                <td>
+                    {% if f.fechado %}
+                    <a href="{% url 'refresh_fechamento' f.id %}" class="btn btn-success disabled"><i
+                            class="fa-solid fa-refresh"></i></a>
+                    {% else %}
+                    <a href="{% url 'refresh_fechamento' f.id %}" class="btn btn-success"><i
+                            class="fa-solid fa-refresh"></i></a>
+                    {% endif %}
+                </td>
 
-               <td>
+                <td>
                     {% if f.fechado %}
-                        <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Reabrir</a>
+                    <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Reabrir</a>
                     {% else %}
-                        <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Encerrar</a>
+                    <a href="{% url 'encerrar_fechamento' f.id %}" class="btn btn-success">Encerrar</a>
                     {% endif %}
 
-               </td>
-               <td>
+                </td>
+                <td>
                     {% if f.fechado %}
-                        <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success disabled" ><i class="fa-solid fa-square-pen"></i></a>
+                    <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success disabled"><i
+                            class="fa-solid fa-square-pen"></i></a>
                     {% else %}
-                        <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success" ><i class="fa-solid fa-square-pen"></i></a>
+                    <a href="{% url 'update_fechamento' f.id %}" class="btn btn-success"><i
+                            class="fa-solid fa-square-pen"></i></a>
                     {% endif %}
-               </td>
-               <td>
+                </td>
+                <td>
                     {% if f.fechado %}
-                        <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success disabled"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success disabled"><i
+                            class="fa-solid fa-trash"></i></a>
                     {% else %}
-                        <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{% url 'delete_fechamento' f.id %}" class="btn btn-success"><i
+                            class="fa-solid fa-trash"></i></a>
                     {% endif %}
-               </td>
+                </td>
             </tr>
             {% endfor %}
-            </tbody>
+        </tbody>
         {% endif %}
 
     </table>
 </div>
 {% endblock %}
-

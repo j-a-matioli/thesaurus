@@ -7,8 +7,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %} {% endblock %}</title>
+    <!-- <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script> -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+     
 </head>
 <body>
     <div class="container">
@@ -20,11 +25,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
-                        <a href="/" class="nav-item nav-link active">Home</a>
-                        <a href="/categoria" class="nav-item nav-link">Categorias</a>
-                        <a href="/conta" class="nav-item nav-link">Contas</a>
-                        <a href="/movimento" class="nav-item nav-link" tabindex="-1">Lançamentos</a>
-                        <a href="/fechamento" class="nav-item nav-link" tabindex="-1">Fechamento</a>
+                        <a href="/" class="nav-item nav-link active">[Home]</a>
+                        <a href="/categoria" class="nav-item nav-link">[Categorias]</a>
+                        <a href="/conta" class="nav-item nav-link">[Contas]</a>
+                        <a href="/fechamento" class="nav-item nav-link" tabindex="-1">[Abrir/Fechar mês]</a>
+                        <a href="/movimento" class="nav-item nav-link" tabindex="-1">[Lançamentos]</a>
 <!--                        <a href="/relatorio" class="nav-item nav-link" tabindex="-1">Relatórios</a>-->
                     </div>
                     <div class="navbar-nav ms-auto">
@@ -41,5 +46,7 @@
             {% block rodape %} {% endblock %}
         </div>
     </div>
+
 </body>
 </html>
+ 

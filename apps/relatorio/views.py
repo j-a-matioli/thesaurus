@@ -1,4 +1,3 @@
-from ast import FormattedValue
 import os
 from django.core.files.storage import FileSystemStorage
 from apps.movimento.models import Movimento
@@ -8,7 +7,6 @@ from weasyprint import HTML
 import tempfile
 from datetime import datetime
 from django.db.models import Sum
-from .filters import RelatorioSinteticoFilter
 from django.views.generic import TemplateView
 from django.db.models import F
 
