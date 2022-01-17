@@ -31,11 +31,10 @@ def FechamentoEncerrar(request, pk):
 
 def FechamentoRefresh(request, pk):
     model = Fechamento
-    registro = Fechamento.objects.get(pk=pk)
 
     if (request.method == "GET"):
         try:
-            # registro = Fechamento.objects.get(pk=pk)
+            registro = Fechamento.objects.get(pk=pk)
             mes_anterior = registro.data + relativedelta(months=-1, day=1)
             Fechamento_mes_anterior = Fechamento.objects.filter(
                 data__year=mes_anterior.year).filter(data__month=mes_anterior.month)
@@ -59,8 +58,9 @@ def FechamentoRefresh(request, pk):
                 totalSaidas = setDespesa.aggregate(Sum('valor'))
                 registro.entradas = totalEntradas['valor__sum']
                 registro.saidas = totalSaidas['valor__sum']
-                registro.saldo = registro.saldo_anterior + \
-                                (totalEntradas['valor__sum'] + totalSaidas['valor__sum'])
+                print(registro.saldo_anterior, totalEntradas['valor__sum'],totalSaidas['valor__sum'])
+                if totalEntradas and totalSaidas:
+                    registro.saldo = registro.saldo_anterior + (totalEntradas['valor__sum'] + totalSaidas['valor__sum'])
             else:
                 registro.entradas = 0
                 registro.saidas = 0
