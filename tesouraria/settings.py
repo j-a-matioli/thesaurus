@@ -19,6 +19,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+DATABASE_URL=os.getenv("DEVELOPMENT_MODE",None)
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
@@ -113,6 +114,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
 USE_THOUSAND_SEPARATOR = True
 DECIMAL_SEPARATOR = ','
 THOUSAND_SEPARATOR = '.'
