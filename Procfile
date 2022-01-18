@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn tesouraria.wsgi --log-file -
+gunicorn --bind 0.0.0.0:8000 tesouraria.wsgi --log-file -
