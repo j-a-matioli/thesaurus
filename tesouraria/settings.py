@@ -1,10 +1,8 @@
-import os
-from django.core.management.utils import get_random_secret_key
 import sys
-import dj_database_url
-
-# from pathlib import Pdateath
+import os
+from decouple import config
 from pathlib import Path
+from dj_database_url import parse as db_url
  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -13,14 +11,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEBUG = os.getenv("DEBUG", "False") == "True"
+# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+# DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-DATABASE_URL=os.getenv("DEVELOPMENT_MODE",None)
-if DEVELOPMENT_MODE is True:
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+SECRET_KEY = config('DJANGO_SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+
+ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
+
+default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
+DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=db_url), }
+
+
+if (config("DEVELOPMENT_MODE") == "True") is True:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -28,11 +38,7 @@ if DEVELOPMENT_MODE is True:
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+    DATABASES['default'] = config('DATABASE_URL', default=default_dburl, cast=db_url)
     
 
 # Application definition
@@ -131,8 +137,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#django_heroku.settings(locals())
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
