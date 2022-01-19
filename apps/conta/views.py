@@ -1,9 +1,6 @@
-from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from apps.conta.models import Conta
 from django.urls import reverse_lazy
-from django.core.exceptions import ValidationError
-from django.shortcuts import get_object_or_404
 
 class ContaList(ListView):
     model = Conta
