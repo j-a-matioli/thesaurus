@@ -37,8 +37,8 @@ if (config("DEVELOPMENT_MODE") == "True") is True:
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    DATABASES['default'] = config('DATABASE_URL', default=default_dburl, cast=db_url)
+# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+#     DATABASES['default'] = config('DATABASE_URL', default=default_dburl, cast=db_url)
     
 
 # Application definition
@@ -130,14 +130,15 @@ NUMBER_GROUPING = 3
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+
 if DEBUG:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static')
     ]
-# else:
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -5,7 +5,6 @@ from django.urls import reverse_lazy
 class ContaList(ListView):
     model = Conta
 
-
 class ContaCreate(CreateView):
     model = Conta
     fields = ['nome','descricao','categoria','status']
