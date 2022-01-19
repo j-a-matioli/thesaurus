@@ -1,10 +1,5 @@
-.vscode
 *.sqlite3
 .pyc
 venv
-virtualenv
-.venv
-.virtualenv
 __pycache__/
-keys/
 
