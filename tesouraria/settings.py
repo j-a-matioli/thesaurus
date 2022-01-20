@@ -6,7 +6,7 @@ from dj_database_url import parse as db_url
 DISABLE_COLLECTSTATIC=1
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEVELOPMENT_MODE = config("DEVELOPMENT_MODE", default=False, cast=bool)
 DATABASE_URL = config("DATABASE_URL")
