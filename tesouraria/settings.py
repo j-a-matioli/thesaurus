@@ -16,6 +16,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 #OBS: DJANGO_ALLOWED_HOST é uma variável de ambiente defina na plataforma de hospedagem
 ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),config("ALLOWED_HOSTS"),'127.0.0.1','localhost']
+DJANGO_ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),config("ALLOWED_HOSTS"),'127.0.0.1','localhost']
 print("Hosts permitidos : ",ALLOWED_HOSTS)
 # ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
 
