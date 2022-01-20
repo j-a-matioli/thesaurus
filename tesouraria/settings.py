@@ -1,4 +1,3 @@
-import sys
 import os
 from decouple import config
 from pathlib import Path
@@ -7,18 +6,10 @@ from dj_database_url import parse as db_url
 DISABLE_COLLECTSTATIC=1
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
-# DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-# DATABASE_URL = os.getenv("DATABASE_URL")
 DEVELOPMENT_MODE = config("DEVELOPMENT_MODE", default=False, cast=bool)
 DATABASE_URL = config("DATABASE_URL")
-
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -27,7 +18,6 @@ ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
 
 default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=db_url), }
-
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -124,11 +114,6 @@ USE_THOUSAND_SEPARATOR = True
 DECIMAL_SEPARATOR = ','
 THOUSAND_SEPARATOR = '.'
 NUMBER_GROUPING = 3
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
