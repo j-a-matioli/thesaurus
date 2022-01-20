@@ -14,7 +14,9 @@ DATABASE_URL = config("DATABASE_URL")
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
+ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),'127.0.0.1','localhost']
+print("Hosts permitidos : ",ALLOWED_HOSTS)
+# ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
 
 default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=db_url), }
