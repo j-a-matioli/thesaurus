@@ -29,8 +29,8 @@ class relatorio_sintetico_pdf(TemplateView):
             contexto = self.get_context_data()
             html_string =  render_to_string(self.template_name,contexto)
             html = HTML(string=html_string)
-            html.write_pdf(target='/tmp/relatorio_sintetico.pdf');
-            fs = FileSystemStorage('/tmp')
+            html.write_pdf(target='relatorio_sintetico.pdf');
+            fs = FileSystemStorage()
             with fs.open('relatorio_sintetico.pdf') as pdf:
                 response = HttpResponse(pdf, content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename="relatorio_sintetico.pdf"'
