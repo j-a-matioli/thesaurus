@@ -14,7 +14,8 @@ DATABASE_URL = config("DATABASE_URL")
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),'127.0.0.1','localhost']
+#OBS: DJANGO_ALLOWED_HOST é uma variável de ambiente defina na plataforma de hospedagem
+ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),config("ALLOWED_HOSTS"),'127.0.0.1','localhost']
 print("Hosts permitidos : ",ALLOWED_HOSTS)
 # ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
 
