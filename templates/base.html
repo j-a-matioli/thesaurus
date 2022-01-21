@@ -7,43 +7,105 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %} {% endblock %}</title>
-    <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'jquery-ui-1.13.0/jquery-ui.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.theme.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
 </head>
-<body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light h4  navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand"></a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav">
-                        <a href="/" class="nav-item nav-link active">[Home]</a>
-                        <a href="/categoria" class="nav-item nav-link">[Categorias]</a>
-                        <a href="/conta" class="nav-item nav-link">[Contas]</a>
-                        <a href="/fechamento" class="nav-item nav-link" tabindex="-1">[Abrir/Fechar mês]</a>
-                        <a href="/movimento" class="nav-item nav-link" tabindex="-1">[Lançamentos]</a>
+<body style="padding-top:50px">
+<div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark h5">
+        <span style="color:yellow" class="navbar-brand mb-0 h1">.:Gestão de Tesouraria:.</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse col-9" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Cadastros
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/categoria">Categoria</a>
+                        <a class="dropdown-item" href="/conta">Conta</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Formas de pagamento</a>
                     </div>
-<!--                    <div class="navbar-nav ms-auto">-->
-<!--                        <a href="#" class="nav-item nav-link">Login</a>-->
-<!--                    </div>-->
-                </div>
-            </div>
-        </nav>
-        <br>
-        <div id="rolatabela">
-        {% block main %} {% endblock %}
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Movimento
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/fechamento">Abrir/Fechar Mês</a>
+                        <a class="dropdown-item" href="/movimento">Lançamentos</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Relatórios</a>
+                </li>
+            </ul>
         </div>
-        <div class="footer fixed-bottom">
-            {% block rodape %} {% endblock %}
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Entrar</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Perfil
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenu">
+                        <a class="dropdown-item" href="#">Editar Perfil</a>
+                        <a class="dropdown-item" href="#">Alterar Senha</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <br>
+    <div id="conteudo">
+        {% block main %} {% endblock %}
+    </div>
+</div>
+
+<div class="container footer fixed-bottom">
+    <hr 100%>
+    {% block rodape %}
+    {% endblock %}
+    <div class="container">
+        <div class="row bg-warning text-primary ">
+            <div class="col-md-8">
+                <span class="small align-middle">Desenvolvido por: <b>Matioli, J.A.</b></span>
+            </div>
+            <div class="col-md-4 text-right">
+                <span class="small  align-middle">j.a.matioli@gmail.com</span>
+            </div>
         </div>
     </div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--    <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>-->
+<!--    <script type="text/javascript" src="{% static 'jquery-ui-1.13.0/jquery-ui.js' %}"></script>-->
 </body>
 </html>
- 

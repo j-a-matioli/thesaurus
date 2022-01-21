@@ -2,5 +2,44 @@
 
 {% block main %}
 
+<h2>Paróquia São Benedito - Limeira</h2>
+<h2>Diocese de Limeira - São Palio - Brasil</h2>
+<br>
+<h3>Sistema simplificado de Gestão de Tesouraria</h3>
+<br>
+<h3>Sequência lógica de uso do sistema:</h3>
+<ol>
+    <li>
+        Categorias: Salários, Internet, Dízimo, Coleta, Ajuda de custo, etc.
+        <br>
+        Lembrando que uma categoria pode ser do tipo Receita ou Despesa
+    </li>
+    <li>
+        Plano de contas: Salário da secretária mais linda da diocese, Ajuda de custo para a tesoureira, Salário da
+        serviçal, Dízimo dos fieis da matriz, Coleta missa sábado 18:30, etc.
+        <br>
+        Lembrando que toda conta terá que pertencer a uma Categoria.
+    </li>
+    <li>
+        Abir/Fechar Mês: Inicializa um mês, sobre o qual será lançado as receitas e despesas. Nesse momento o sistema
+        transportará o saldo do último mês para o novo mês, como Saldo Anterior.
+    </li>
+    <li>
+        Lançamento: Lançamento das contras, Receita e Despesa, do mês em questão.
+        <br>Observe que antes de iniciar os lançamentos deverá definir o mês que está trabalhando e que, todas as contas
+        lançadas deverão possuir data do mês em questão.
+        <br>Depois de feito os lançamentos, ou a qualquer momento, pode voltar em Abrir/Fechar Mês e clicar no ícone
+        Refresh para o sistema atualizar os dados de fechamento do mês, como as Entradas, Saídas e Saldo do Mês.
+    </li>
+    <li>
+        Depois de concluido os lançamentos do mês, poderá clicar em Encerrar, aí esse mês não aceitará mais lançamentos,
+        a menos que reabra o mês.
+    </li>
+    <li>
+        E, finalmente, poderá clicar no ícone da <b>impressora</b>, no menu Lançamento, e imprimir o Balancete do mês em
+        questão.
+    </li>
+</ol>
+
 {% endblock %}
 
