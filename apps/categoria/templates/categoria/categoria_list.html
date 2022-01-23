@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block main %}
+
 <h4>Cadastro de Categorias</h4>
-    <a href="{% url 'create_categoria' %}" class="btn btn-success"> <i class="fa fa-plus"></i></a>
+
+<a href="{% url 'create_categoria' %}" class="btn btn-success"> <i class="fa fa-plus"></i></a>
 <table class="table">
     <thead>
         <th>Nome</th>
@@ -50,5 +52,4 @@
         </tbody>
     {% endif %}
 </table>
-
 {% endblock %}

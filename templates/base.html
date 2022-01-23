@@ -10,68 +10,90 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.theme.min.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.theme.min.css' %}">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="padding-top:50px">
 <div class="container">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark h5">
-        <span style="color:yellow" class="navbar-brand mb-0 h1">.:Gestão de Tesouraria:.</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse col-9" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Cadastros
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/categoria">Categoria</a>
-                        <a class="dropdown-item" href="/conta">Conta</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Formas de pagamento</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Movimento
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/fechamento">Abrir/Fechar Mês</a>
-                        <a class="dropdown-item" href="/movimento">Lançamentos</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Relatórios</a>
-                </li>
-            </ul>
-        </div>
+    <div class="row">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <span style="color:#FCA311" class="navbar-brand mb-0 h1">.:Gestão de Tesouraria:.</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse col-8" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/categoria">Categoria</a>
+                            <a class="dropdown-item" href="/conta">Conta</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Formas de pagamento</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Movimento
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/fechamento">Abrir/Fechar Mês</a>
+                            <a class="dropdown-item" href="/movimento">Lançamentos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Entrar</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Perfil
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenu">
-                        <a class="dropdown-item" href="#">Editar Perfil</a>
-                        <a class="dropdown-item" href="#">Alterar Senha</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link border border-warning" href="{% url 'logout_user' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link border border-warning" href="{% url 'login_user' %}">Login</a>
+                    </li>
+                    {% endif %}
+                    <li> &nbsp;</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle border border-warning" href="#" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Perfil
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenu">
+                            {% if not user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url 'register' %}">Criar Conta</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'edit_profile' %}">Editar Perfil</a>
+                                <a class="dropdown-item" href="{% url 'change_password' %}">Alterar Senha</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+ </div>
+<div>
+    <div class="col-md-12 text-right">
+        {% if user.is_authenticated %}
+        <span class="meddium  align-middle">Logado como: <b>{{ user.username }}</b></span>
+        {% endif %}
+    </div>
 </div>
 <div class="container">
     <br>
@@ -85,7 +107,7 @@
     {% block rodape %}
     {% endblock %}
     <div class="container">
-        <div class="row bg-warning text-primary ">
+        <div style="background-color:#FCA311" class="row text-black ">
             <div class="col-md-8">
                 <span class="small align-middle">Desenvolvido por: <b>Matioli, J.A.</b></span>
             </div>

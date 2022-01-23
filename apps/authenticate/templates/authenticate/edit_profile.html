@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div>
+    <h2 class="text-center">Atualizar Pefil!</h2>
+    <br>
+    <form method="POST" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p class="text-warning">Seu formulário possui erro(s)!</p>
+            {% for field in form.fields %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {{ form.as_p }}
+        <p><smal><a href="{% url 'change_password' }">Clique aqui </a>para alterar sua senha!</smal></p>
+        <button class="btn btn-secondary align-center col-md-6 offset-md-3">Enviar</button>
+    </form>
+    <br><br>
+</div>
+{% endblock %}
+

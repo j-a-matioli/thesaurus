@@ -1,8 +1,9 @@
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from apps.categoria.models import Categoria
-from django.urls import reverse_lazy
+from django.http import HttpResponse
 from django.template import loader
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from apps.categoria.models import Categoria
 
 
 class CategoriaList(ListView):
@@ -10,33 +11,22 @@ class CategoriaList(ListView):
 
 class CategoriaCreate(CreateView):
     model = Categoria
-    fields = ['nome','descricao','tipo','status']
-
+    fields = ['nome', 'descricao', 'tipo', 'status']
 
     def form_valid(self, form):
         form.save(self)
-        return super(CategoriaCreate,self).form_valid(form)
+        return super(CategoriaCreate, self).form_valid(form)
+
 
 class CategoriaUpdate(UpdateView):
     model = Categoria
-    fields = ['nome','descricao','tipo','status']
+    fields = ['nome', 'descricao', 'tipo', 'status']
 
 
 class CategoriaDelete(DeleteView):
     model = Categoria
     success_url = reverse_lazy('list_categoria')
 
-"""     def delete(self,*args, **kwargs):
-        return HttpResponseRedirect("<h1>Olaaaaaaaaaaaaaaaaaaaaaaaa</h1>")
-        self.object = self.get_object()
-        success_url = reverse_lazy('list_categoria')
-        fail_url = reverse_lazy('denied_delete')
-        if not self.object.conta_set.exists():
-            return HttpResponseRedirect(fail_url)
-
-        self.object.delete()
-        return HttpResponseRedirect(success_url)
- """
 
 def DeniedDeleteCategoria(request):
     t = loader.get_template('categoria_denied_delete.html')

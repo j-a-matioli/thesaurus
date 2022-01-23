@@ -9,7 +9,7 @@
     {% csrf_token %}
         <div class="well">
     <div class="container-fluid">
-      <div class="h3">Mês/Ano de movimento: <b>{{ mes }}/{{ ano }}</b></div>
+      <div class="h3">Mês/Ano de movimento: <b>{{ mes_corrente }}/{{ ano_corrente }}</b></div>
         <div class="row">
             <div class="col-md-3">{{ form.conta | as_crispy_field }}</div>
             <div class="col-md-3">{{ form.data  | as_crispy_field }}</div>
@@ -42,4 +42,3 @@
   </form>
 
 {% endblock %}
-  

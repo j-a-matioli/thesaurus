@@ -1,16 +1,20 @@
-from http.client import HTTPResponse
-from time import strftime
-from xml.dom import ValidationErr
-from django.contrib.sessions.models import Session
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from apps.fechamento.models import Fechamento
-from apps.movimento.forms import MovimentoForm
 from apps.movimento.models import Movimento
-from django.db.models import Sum, Value
+from django.db.models import Sum
 from .filters import MovimentoFilter
 from datetime import date, datetime
-from django.forms import ValidationError
+from datetime import date, datetime
+
+from django.db.models import Sum
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+
+from apps.fechamento.models import Fechamento
+from apps.movimento.models import Movimento
+from .filters import MovimentoFilter
+
 
 class MovimentoList(ListView):
     model = Movimento
@@ -74,7 +78,6 @@ class MovimentoList(ListView):
         else:
             context['fechado'] = False
 
-
         return context
 
 class MovimentoCreate(CreateView):
@@ -87,11 +90,11 @@ class MovimentoCreate(CreateView):
         self.request.session['mes_corrente'] = self.month
 
     def get_context_data(self, **kwargs):
-        ctx = super(MovimentoCreate, self).get_context_data(**kwargs)
-        ctx['mes'] =self.request.session['mes_corrente']
-        ctx['ano'] =self.request.session['ano_corrente']
-        ctx['data_full'] = date(int(self.request.session['ano_corrente']), int(self.request.session['mes_corrente'] ), 1)
-        return ctx
+        kwargs['mes_corrente'] = self.request.session['mes_corrente']
+        kwargs['ano_corrente'] = self.request.session['ano_corrente']
+        kwargs['data_full'] = date(int(self.request.session['ano_corrente']), int(self.request.session['mes_corrente'] ), 1)
+        context = super(MovimentoCreate, self).get_context_data(**kwargs)
+        return context
 
     def form_valid(self, form):
         if form.instance.conta.categoria.tipo==2:
@@ -109,6 +112,30 @@ class MovimentoUpdate(UpdateView):
     model = Movimento
     fields = ['conta','data','valor','observ']
     success_url = reverse_lazy("list_movimento")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mes_corrente'] = self.request.session['mes_corrente']
+        context['ano_corrente'] = self.request.session['ano_corrente']
+        context['data_full'] = date(int(self.request.session['ano_corrente']), int(self.request.session['mes_corrente'] ), 1)
+        return context
+
+    def form_valid(self, form):
+        print(form.instance.data, self.request.session['data_full'] )
+        if form.instance.conta.categoria.tipo==2 and form.instance.valor>0:
+            form.instance.valor *= -1;
+
+        if (form.instance.data.month==int(self.request.session['mes_corrente'])) and \
+            (form.instance.data.year==int(self.request.session['ano_corrente'])):
+            form.save(self)
+            return super(MovimentoUpdate, self).form_valid(form)
+        else:
+            form.add_error('data', 'Data fora do mês de movimento!')
+            return super(MovimentoUpdate, self).form_invalid(form)
+
+        redirect_url = super(MovimentoUpdate, self).form_valid(form)
+        return redirect_url
+
 
 class MovimentoDelete(DeleteView):
     model = Movimento

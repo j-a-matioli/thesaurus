@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div style="padding-top:100px">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissable" role="alert">
+            <buton class="close" data-dismiss="alert">
+                <small><sup>x</sup></small>
+            </buton>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h2 class="text-center">Fazer login em sua conta!</h2>
+    <br>
+    <div class="col-md-6 offset-md-3">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" id="email" name="username" placeholder="Informe seu email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Informe sua senha">
+            </div>
+            <button class="btn btn-secondary align-center col-md-6 offset-md-3">Fazer login</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -6,6 +6,7 @@ class DateInput(forms.DateInput):
 
 
 class MovimentoForm(forms.ModelForm):
+
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
@@ -28,4 +29,3 @@ class MovimentoForm(forms.ModelForm):
             if data.month != self.request.session['ano_corrente']:
                 raise forms.ValidationError("Data fora do mês de movimento!")
         return cleaned_data
-        

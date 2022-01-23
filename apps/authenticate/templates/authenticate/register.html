@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div>
+    <h2 class="text-center">Criar Conta</h2>
+    <br>
+    <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p class="text-warning">Seu formulário possui erro(s)!</p>
+            {% for field in form.fields %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {{ form.as_p }}
+        <button class="btn btn-secondary align-center col-md-6 offset-md-3">Enviar</button>
+    </form>
+    <br><br>
+</div>
+{% endblock %}
+

@@ -2,7 +2,10 @@ import os
 from decouple import config
 from pathlib import Path
 from dj_database_url import parse as db_url
- 
+
+LOGIN_URL = '/authenticate/login'
+LOGIN_REDIRECT_URL='/authenticate/login'
+
 DISABLE_COLLECTSTATIC=1
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'jquery',
     'bootstrap4',
     'crispy_forms',
+    'apps.authenticate',
     'apps.categoria',
     'apps.conta',
     'apps.movimento',
@@ -119,8 +123,8 @@ DECIMAL_SEPARATOR = ','
 THOUSAND_SEPARATOR = '.'
 NUMBER_GROUPING = 3
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
