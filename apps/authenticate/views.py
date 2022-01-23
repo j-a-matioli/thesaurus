@@ -14,7 +14,12 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request,'Voce está logado no sistema!')
-            return redirect('home')
+            nxt = request.GET.get("next", None)
+            if not nxt is None:
+                return redirect(request.GET['next'])
+            else:
+                return redirect('home')
+
         else:
             messages.success(request,'Falha na autenticação, tente novamente...')
             return redirect(reverse("login_user"))
