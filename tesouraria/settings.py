@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'apps.fechamento',
     'apps.relatorio',
     'apps.core',
+    'apps.meiopagamento',
 ]
 
 MIDDLEWARE = [

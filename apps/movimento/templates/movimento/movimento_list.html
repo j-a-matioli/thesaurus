@@ -26,7 +26,7 @@
             <a href="{% url 'create_movimento' %}" class="btn btn-success btn-sm float-end {% if fechado == True %} disabled {% endif %}"> <i class="fa fa-plus"> Novo</i></a>
         </div>
         <div class="col-sm-2 ">
-          <a href="/relatorio" class="btn btn-info btn-sm float-end"> <i class="fas fa-print"></i></a>
+          <a href="/relatorio/balancete_analitico" class="btn btn-info btn-sm float-end"> <i class="fas fa-print"></i></a>
         </div>
 </div>
 <div class="row">
@@ -36,7 +36,8 @@
             <thead>
                 <th>Conta</th>
                 <th>Data</th>
-                <th>Tipo</th>
+                <th>Docto</th>
+                <th>Meio</th>
                 <th>Valor</th>
                 <th>Observação</th>
                 <th> </th>
@@ -52,13 +53,8 @@
                         <a href="{% url 'update_movimento' movto.id %}" >{{ movto.conta }}</a>
                    </td>
                    <td>{{ movto.data|date:"d/m/Y" }} </td>
-                    <td>
-                        {% if movto.conta.categoria.tipo == 1 %}
-                            Receita
-                        {% else %}
-                            Despesa
-                        {% endif %}
-                    </td>
+                   <td>{{ movto.documento }}</td>
+                   <td>{{ movto.meiopagamento }}</td>
                    <td>{{ movto.valor }}</td>
                    <td>{{ movto.observ }}</td>
                    <td>

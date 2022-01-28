@@ -1,0 +1,96 @@
+{% extends 'base_relatorio.html' %}
+{% load humanize %}
+{% load l10n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Movimento Caixa
+{% endblock %}
+
+{% block header %}
+    <h1>Paróquia São Benedito - Limeira</h1>
+{% endblock %}
+
+{% block main %}
+    <h2>Balancete do mês {{ mes }}/{{ ano }}</h2>
+    {% if lancamentos %}
+    <table class="bordada">
+        <thead>
+            <th style="width: 40% ">Conta</th>
+            <th style="text-align: center; width: 20%">Data</th>
+            <th style="text-align: center; width: 20%">Documento</th>
+            <th style="text-align: right; width: 20%">Valor (R$)</th>
+        </thead>
+        <tbody>
+            {% for p in lancamentos %}
+            <tr>
+                <td>{{ p.conta }}</td>
+                <td style="text-align: center; ">{{ p.data|date:"d/m/Y" }} </td>
+                <td style="text-align: right;">{{ p.documento }}</td>
+                <td style="text-align: right;">{{ p.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <br><br>
+    <h1>Quadro Resumo:</h1>
+    <table class="bordada">
+        <thead>
+            <th style="width: 50%; padding-left:1.0em; font-size:1.5rem;">Natureza</th>
+            <th style="text-align: right; width: 50%; padding-right:1.0em; font-size:1.5rem;">Valor Total</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 50%; padding-left:1.0em; font-size:1.5rem;">
+                    Receita
+                </td>
+                <td style="text-align: right; width: 50%; padding-right:1.0em; font-size:1.5rem;">
+                    RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%; padding-left:1.0em; font-size:1.5rem;">
+                    Despesa
+                </td>
+                <td style="text-align: right; width: 50%; padding-right:1.0em; font-size:1.5rem;">
+                    RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%; padding-left:1.0em; font-size:1.5rem;">
+                    Saldo do período
+                </td>
+                <td style="text-align: right; width: 50%; padding-right:1.0em; font-size:1.5rem;">
+                    RS {{ totalSaldo|floatformat:2|intcomma }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+{% endblock %}
+
+{% block rodape %}
+<!-- rodape -->
+    <br><br><br>
+    <table class="table">
+        <tr>
+            <td style="text-align: center; width: 40%; border-top:1px solid black;"><b>Pe. Ciro Sinotti</b></td>
+            <td></td>
+            <td style="text-align: center; width: 40%; border-top:1px solid black;"><b>Luzia Matioli</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Pároco</td>
+            <td></td>
+            <td style="text-align: center;">Tesoureira</td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td colspan="3">
+                <p style="text-align: center; font-size:smaller;"><i>Limeira,{{ data_emissao }}</i></p>
+            </td>
+        </tr>
+    </table>
+
+
+{% endblock %}

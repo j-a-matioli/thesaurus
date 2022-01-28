@@ -12,75 +12,25 @@ Movimento Caixa
 {% endblock %}
 
 {% block main %}
-<h2>Balancete do mês {{ mes }}/{{ ano }}</h2>
-{% if lancamentos %}
-<table class="bordada">
-    <thead>
-        <th style="width: 40%">Conta</th>
-        <th style="width: 20%">Categoria</th>
-        <th style="text-align: center; width: 20%">Data</th>
-        <th style="text-align: right; width: 20%">Valor (R$)</th>
-    </thead>
-    <tbody>
-        {% for p in lancamentos %}
-        <tr>
-            <td>{{ p.conta }}</td>
-            <td>{{ p.conta.categoria }}</td>
-            <td style="text-align: center; ">{{ p.data|date:"d/m/Y" }} </td>
-            <td style="text-align: right;">
-                {%if p.conta.categoria.tipo == 'Despesa'%}
-                <h3>-</h3>
-                {% endif %}
-                {{ p.valor }}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-<br><br>
-<h2>Resumo:</h2>
-<table class="bordada">
-    <tr>
-        <td>
-            Total de Receitas
-        </td>
-        <td>
-            RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Total de Despesas
-        </td>
-        <td>
-            RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Saldo Final
-        </td>
-        <td>
-            RS {{ totalSaldo|floatformat:2|intcomma }}
-        </td>
-    </tr>
-</table>
-<br>
-<h2>Sub-total por categoria:</h2>
-<br>
-<table class="bordada">
-    {% for s in sumario %}
-    <tr>
-        <td>
-            {{ s.conta__categoria__nome }}
-        </td>
-        <td>
-            R$ {{ s.total|floatformat:2|intcomma }}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <h1>Balancete SINTÉTICO do mês {{ mes }}/{{ ano }}</h1>
+    {% if sumario %}
+        <table class="bordada" >
+            <thead>
+                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">Categoria de conta</th>
+                <th style="text-align: right; width: 40%; padding-right:1.0em;  font-size:1.5rem;">Valor (R$)</th>
+            </thead>
+            {% for s in sumario %}
+            <tr>
+                <td style="padding-left:1.0em;  font-size:1.5rem;" >
+                    {{ s.conta__categoria__nome }}
+                </td>
+                <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
+                   R$ {{ s.total|floatformat:2|intcomma }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
 
 {% block rodape %}

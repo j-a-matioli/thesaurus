@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+<h1>Cadastro de Meios de Pagamento/Recebimento</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'list_meiopagamento' %}" class="btn btn-success">Cancelar</a>
+</form>
+{% endblock %}
+

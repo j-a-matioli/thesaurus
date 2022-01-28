@@ -1,10 +1,3 @@
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from apps.fechamento.models import Fechamento
-from apps.movimento.models import Movimento
-from django.db.models import Sum
-from .filters import MovimentoFilter
-from datetime import date, datetime
 from datetime import date, datetime
 
 from django.db.models import Sum
@@ -18,7 +11,7 @@ from .filters import MovimentoFilter
 
 class MovimentoList(ListView):
     model = Movimento
-    fields = ['conta', 'data', 'valor', 'observ']
+    fields = ['conta', 'data', 'documento' , 'valor','meiopagamento', 'observ']
     template_name = 'list_movimento'
     ordering = ['-data']
     agora = datetime.now()
@@ -82,7 +75,7 @@ class MovimentoList(ListView):
 
 class MovimentoCreate(CreateView):
     model = Movimento
-    fields = ['conta','data','valor','observ']
+    fields = ['conta','data', 'documento', 'valor', 'meiopagamento','observ']
     success_url = reverse_lazy("create_movimento")
     
     def __int__(self):
@@ -110,7 +103,7 @@ class MovimentoCreate(CreateView):
             
 class MovimentoUpdate(UpdateView):
     model = Movimento
-    fields = ['conta','data','valor','observ']
+    fields = ['conta','data', 'documento', 'valor','meiopagamento' ,'observ']
     success_url = reverse_lazy("list_movimento")
 
     def get_context_data(self, **kwargs):

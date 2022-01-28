@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meios de Pagamento e Recebimento
+{% endblock %}
+
+{% block main %}
+<h4>Meios de Pagamento/Recebimento</h4>
+    <a href="{% url 'create_meiopagamento' %}" class="btn btn-success"> <i class="fa fa-plus"></i></a>
+<table class="table">
+    <thead>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th> </th>
+        <th> </th>
+    </thead>
+    {% if object_list %}
+        <tbody>
+        {% for meio in object_list %}
+        <tr>
+           <td>
+                <a href="#">{{ meio.nome }}</a>
+           </td>
+           <td>{{ meio.descricao }}</td>
+           <td>
+           <td>
+                <a href="{% url 'update_meiopagamento' meio.id %}" class="btn btn-success"><i class="fa-solid fa-square-pen"></i></a>
+           </td>
+           <td>
+                <a href="{% url 'delete_meiopagamento' meio.id %}" class="btn btn-success"><i class="fa-solid fa-trash"></i></a>
+           </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+
+{% endblock %}

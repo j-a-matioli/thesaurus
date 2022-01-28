@@ -1,25 +1,21 @@
 from django import forms
 from apps.movimento.models import Movimento
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
+from apps.conta.models import Conta
+from apps.meiopagamento.models import MeioPagamento
 
 class MovimentoForm(forms.ModelForm):
-
+    conta = forms.ModelChoiceField(queryset=Conta)
+    meiopagamento = forms.ModelChoiceField(queryset=MeioPagamento)
+    documento = forms.TextInput(attrs={'placeholder':'Documento'})
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
 
     class Meta:
         model = Movimento
-        fields = {'conta', 'data', 'valor', 'observ'}
+        fields = {'conta', 'data', 'documento', 'valor', 'meiopagamento','observ'}
         exclude = ['id']
-        widget = {
-            'data': DateInput(attrs={'placeholder': 'Data da transação!',
-                                         'id': 'id_data'})
-        }
-        
+
     def clean(self):
         cleaned_data = super(MovimentoForm, self).clean()
         data = cleaned_data.get("data")

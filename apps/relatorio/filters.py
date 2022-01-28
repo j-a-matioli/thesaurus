@@ -2,7 +2,7 @@ import django_filters
 
 from apps.movimento.models import Movimento
 
-class RelatorioSinteticoFilter(django_filters.FilterSet):
+class RelatorioAnaliticoFilter(django_filters.FilterSet):
     mes_corrente = django_filters.NumberFilter(field_name='data', lookup_expr='month')
     ano_corrente = django_filters.NumberFilter(field_name='data', lookup_expr='year')
     

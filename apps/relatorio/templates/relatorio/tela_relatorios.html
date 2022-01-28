@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+<h1>Emissão de Relatórios</h1>
+<form method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+        <p class="text-warning">Seu formulário possui erro(s)!</p>
+        {% for field in form.fields %}
+            {% if field.errors %}
+                {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {{ form|crispy }}
+    <br>
+    <button name="btn_balancete_analitico" type="submit" class="btn btn-primary">Balancete Analitico</button>
+    &nbsp;&nbsp;
+    <button name="btn_balancete_sintetico" type="submit" class="btn btn-primary">Balancete Sintético</button>
+    &nbsp;&nbsp;
+    <a href="{% url 'home' %}" class="btn btn-success  float-right">Cancelar</a>
+</form>
+{% endblock %}
