@@ -1,7 +1,8 @@
 import os
 from decouple import config
 from pathlib import Path
-from dj_database_url import parse as db_url
+from dj_database_url import parse as dburl
+import  dj_database_url
 
 LOGIN_URL = '/authenticate/login'
 LOGIN_REDIRECT_URL='/authenticate/login'
@@ -12,6 +13,7 @@ DISABLE_COLLECTSTATIC=1
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEVELOPMENT_MODE = config("DEVELOPMENT_MODE", default=False, cast=bool)
+MODO = config("MODO")
 DATABASE_URL = config("DATABASE_URL")
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
@@ -20,22 +22,21 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 #OBS: DJANGO_ALLOWED_HOST é uma variável de ambiente defina na plataforma de hospedagem
 ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),config("ALLOWED_HOSTS"),'127.0.0.1','localhost']
 DJANGO_ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"),config("ALLOWED_HOSTS"),'127.0.0.1','localhost']
-print("Hosts permitidos : ",ALLOWED_HOSTS)
-# ALLOWED_HOSTS = [config('DJANGO_ALLOWED_HOSTS'),'127.0.0.1','localhost']
 
-default_dburl = 'sqlite:///'+os.path.join(BASE_DIR, 'db.sqlite3')
-DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=db_url), }
-
-if DEVELOPMENT_MODE is True:
+print('Development_Mode: ',DEVELOPMENT_MODE)
+if MODO == 'Local':
+    print('SQLite')
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-#     DATABASES['default'] = config('DATABASE_URL', default=default_dburl, cast=db_url)
-    
+else:
+    print('PostGreSql')
+    DATABASES = {'default': config('DATABASE_URL', default="", cast=dburl), }
+
+
 
 # Application definition
 
