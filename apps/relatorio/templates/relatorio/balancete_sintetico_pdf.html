@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Movimento Caixa
+Balancete Sintético
 {% endblock %}
 
 {% block header %}
@@ -12,11 +12,11 @@ Movimento Caixa
 {% endblock %}
 
 {% block main %}
-    <h1>Balancete SINTÉTICO do mês {{ mes }}/{{ ano }}</h1>
+    <h2>BALANCETE SINTÉTICO - Competência {{ mes_corrente|intcomma}}/{{ ano_corrente }}</h2>
     {% if sumario %}
         <table class="bordada" >
             <thead>
-                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">Categoria de conta</th>
+                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">Tipo de Receita/Despesa</th>
                 <th style="text-align: right; width: 40%; padding-right:1.0em;  font-size:1.5rem;">Valor (R$)</th>
             </thead>
             {% for s in sumario %}
