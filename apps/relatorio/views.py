@@ -116,10 +116,12 @@ def bal_analitico_pdf(_mes, _ano):
 
 def bal_sintetico_pdf(_mes, _ano):
     template_name = 'relatorio/relatorio_sintetico_pdf.html'
+    ano_corrente = _ano
+    mes_corrente = _mes
 
     # obtem os dados para o relatorio
-    setAll = Movimento.objects.filter(data__year=_ano). \
-        filter(data__month=_mes). \
+    setAll = Movimento.objects.filter(data__year=ano_corrente). \
+        filter(data__month=mes_corrente). \
         order_by('data', 'conta__categoria', 'conta')
 
     context = {}
@@ -128,8 +130,8 @@ def bal_sintetico_pdf(_mes, _ano):
         .order_by('conta__categoria__nome')
 
     context['sumario'] = sumario
-    context['mes'] = _mes
-    context['ano'] = _ano
+    context['mes'] = mes_corrente
+    context['ano'] = ano_corrente
     context['data_emissao'] = datetime.now()
 
     html_string = render_to_string(template_name, context)
@@ -137,15 +139,13 @@ def bal_sintetico_pdf(_mes, _ano):
     html.write_pdf(target='relatorio_sintetico.pdf');
 
     fs = FileSystemStorage()
-    with fs.open('relatorio_sitnetico.pdf') as output:
-        response = HttpResponse(output, content_type='application/pdf')
+    with fs.open('relatorio_sitnetico.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="relatorio_sintetico.pdf"'
 
     return response
 
 def tela_relatorios(request):
-    _ano = None
-    _mes = None
     _btnAnalitico=False
     _btnSintetico=False
 
