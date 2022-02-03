@@ -1,9 +1,12 @@
 from django import forms
+
+from apps.fechamento.models import Fechamento
 from apps.movimento.models import Movimento
 from apps.conta.models import Conta
 from apps.meiopagamento.models import MeioPagamento
 
 class MovimentoForm(forms.ModelForm):
+    competencia = forms.ModelChoiceField(queryset=Fechamento)
     conta = forms.ModelChoiceField(queryset=Conta)
     meiopagamento = forms.ModelChoiceField(queryset=MeioPagamento)
     documento = forms.TextInput(attrs={'placeholder':'Documento'})

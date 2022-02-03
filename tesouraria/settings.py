@@ -2,7 +2,6 @@ import os
 from decouple import config
 from pathlib import Path
 from dj_database_url import parse as dburl
-import  dj_database_url
 
 LOGIN_URL = '/authenticate/login'
 LOGIN_REDIRECT_URL='/authenticate/login'
@@ -35,8 +34,6 @@ if MODO == 'Local':
 else:
     print('PostGreSql')
     DATABASES = {'default': config('DATABASE_URL', default="", cast=dburl), }
-
-
 
 # Application definition
 

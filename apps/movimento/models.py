@@ -1,11 +1,13 @@
 from django.db import models
 from django.db.models import Sum, Value
 from apps.conta.models import Conta
+from apps.fechamento.models import Fechamento
 from apps.meiopagamento.models import MeioPagamento
 
 
 class Movimento(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    competencia = models.ForeignKey(Fechamento,on_delete=models.PROTECT)
     conta = models.ForeignKey(Conta, on_delete=models.PROTECT)
     data = models.fields.DateField()
     valor = models.DecimalField(max_digits=13, decimal_places=2)
