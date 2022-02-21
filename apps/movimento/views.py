@@ -75,7 +75,8 @@ class MovimentoList(ListView):
 
 class MovimentoCreate(CreateView):
     model = Movimento
-    fields = ['conta','data', 'documento', 'valor', 'meiopagamento','observ']
+    fields = '__all__'
+    exclude = ['id']
     success_url = reverse_lazy("create_movimento")
     
     def __int__(self):
@@ -103,7 +104,8 @@ class MovimentoCreate(CreateView):
             
 class MovimentoUpdate(UpdateView):
     model = Movimento
-    fields = ['conta','data', 'documento', 'valor','meiopagamento' ,'observ']
+    fields = '__all__'
+    exclude = ['id']
     success_url = reverse_lazy("list_movimento")
 
     def get_context_data(self, **kwargs):

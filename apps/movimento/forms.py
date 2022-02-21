@@ -1,30 +1,25 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Submit
 from django import forms
-
 from apps.fechamento.models import Fechamento
 from apps.movimento.models import Movimento
 from apps.conta.models import Conta
 from apps.meiopagamento.models import MeioPagamento
 
 class MovimentoForm(forms.ModelForm):
-    competencia = forms.ModelChoiceField(queryset=Fechamento)
-    conta = forms.ModelChoiceField(queryset=Conta)
-    meiopagamento = forms.ModelChoiceField(queryset=MeioPagamento)
-    documento = forms.TextInput(attrs={'placeholder':'Documento'})
-    def __int__(self):
+    # competencia = forms.ModelChoiceField(queryset=Fechamento)
+    # conta = forms.ModelChoiceField(queryset=Conta)
+    # data = forms.DateField(label='',help_text='',attrs={'class':'form-control','placeholder':'Data do pagamento'})
+    # meiopagamento = forms.ModelChoiceField(queryset=MeioPagamento)
+    # documento = forms.TextInput(label='', widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Nr. Documento'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
 
     class Meta:
         model = Movimento
-        fields = {'conta', 'data', 'documento', 'valor', 'meiopagamento','observ'}
+        fields = '__all__'
         exclude = ['id']
-
-    def clean(self):
-        cleaned_data = super(MovimentoForm, self).clean()
-        data = cleaned_data.get("data")
-
-        if data :
-            print('Cleaned the data: MES = ',data.month)
-            if data.month != self.request.session['ano_corrente']:
-                raise forms.ValidationError("Data fora do mês de movimento!")
-        return cleaned_data

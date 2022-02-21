@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'bootstrap_datepicker_plus',
     'jquery',
     'bootstrap4',
     'crispy_forms',

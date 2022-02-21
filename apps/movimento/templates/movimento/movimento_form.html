@@ -1,46 +1,15 @@
 {% extends "base.html" %}
-{% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+<!--{% load bootstrap4 %}-->
+<!--{% bootstrap_css %}-->
+<!--{% bootstrap_javascript jquery='full' %}-->
 {% load crispy_forms_tags %}
 
 {% block main %}
   <form action="" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-        <div class="well">
-    <div class="container-fluid">
-      <div class="h3">Mês/Ano de movimento: <b>{{ mes_corrente }}/{{ ano_corrente }}</b></div>
-        <div class="row">
-            <div class="col-md-3">{{ form.conta | as_crispy_field }}</div>
-            <div class="col-md-3">{{ form.data  | as_crispy_field }}</div>
-            <div class="col-md-3">{{ form.meiopagamento | as_crispy_field }}</div>
-            <div class="col-md-3">{{ form.documento  | as_crispy_field }}</div>
-            <div class="col-md-3">{{ form.valor | as_crispy_field }}</div>
-            <div class="col-md-3">{{ form.observ| as_crispy_field }}</div>
-        </div>
-        {% buttons %}
-        <br>
-          <button type="submit" class="btn btn-primary">
-            Salvar
-          </button>
-          <a href="{% url 'list_movimento' %}" class="btn btn-success">Cancelar</a>
-          {% endbuttons %}
-    
-    </div>
-
-
-    <script>
-      var d = new Date();
-      var currMonth = d.getMonth();
-      var currYear = d.getFullYear();
-      var currDay = d.getDay();
-      var startDate = new Date(currYear,currMonth,currDay);
-      $.datepicker.formatDate( "dd/mm/yy" );   
-      $( function() {
-        $( "#id_data" ).datepicker({dateFormat: 'dd/mm/yy', setDate: startDate});
-      } );
-  </script>
-  
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Gravar</button>
+    <a href="{% url 'list_movimento' %}" class="btn btn-success">Cancelar</a>
   </form>
-
+<br><br><br>
 {% endblock %}

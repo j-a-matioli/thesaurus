@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date, datetime
 
 FECHADO_CHOICES = [
     (True, 'Fechado'),
@@ -20,6 +21,9 @@ class Fechamento(models.Model):
     class Meta:
         # unique_together = (('ano', 'mes'),)        
         ordering = ['data',]
+
+    def __str__(self):
+        return self.data.month.__str__()+"/"+self.data.year.__str__()
 
     def get_absolute_url(self):
         return reverse('list_fechamento')

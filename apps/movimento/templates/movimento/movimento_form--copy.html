@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <form action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p class="text-warning">Seu formulário possui erro(s)!</p>
+            {% for field in form.fields %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="{% url 'list_movimento' %}" class="btn btn-success">Cancelar</a>
+    </form>
+    <br><br>
+{% endblock %}
+
