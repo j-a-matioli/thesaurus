@@ -12,8 +12,10 @@ Movimento Caixa
 {% endblock %}
 
 {% block main %}
-    <h2>BALANCETE ANALÍTICO - Competência {{ mes_corrente|intcomma}}/{{ ano_corrente }}</h2>
-    {% if lancamentos %}
+    <h2>BALANCETE ANALÍTICO - Competência - {{ mes_corrente|intcomma}}/{{ ano_corrente }}</h2>
+    <hr>
+    {% if dsReceita %}
+    <h2>RECEITAS</h2>
     <table class="bordada">
         <thead>
             <th style="width: 40% ">Conta</th>
@@ -22,19 +24,59 @@ Movimento Caixa
             <th style="text-align: right; width: 20%">Valor (R$)</th>
         </thead>
         <tbody>
-            {% for p in lancamentos %}
+            {% for r in dsReceita %}
             <tr>
-                <td>{{ p.conta }}</td>
-                <td style="text-align: center; ">{{ p.data|date:"d/m/Y" }} </td>
-                <td style="text-align: right;">{{ p.documento }}</td>
-                <td style="text-align: right;">{{ p.valor }}</td>
+                <td>{{ r.conta }}</td>
+                <td style="text-align: center; ">{{ r.data|date:"d/m/Y" }} </td>
+                <td style="text-align: right;">{{ r.documento }}</td>
+                <td style="text-align: right;">{{ r.valor }}</td>
             </tr>
             {% endfor %}
+            <tr style="background: #555; color:white">
+                <td></td>
+                <td style="text-align: center; "></td>
+                <td style="text-align: right;">Sub-total: </td>
+                <td style="text-align: right;">
+                    RS {{ totalReceita.valor__sum|floatformat:2|intcomma }}
+                </td>
+            </tr>
         </tbody>
     </table>
     {% endif %}
     <br><br>
-    <h1>Quadro Resumo:</h1>
+    {% if dsDespesa %}
+    <H2 style="page-break-before: always" >DEPESAS</H2>
+    <table class="bordada">
+        <thead>
+            <th style="width: 40% ">Conta</th>
+            <th style="text-align: center; width: 20%">Data</th>
+            <th style="text-align: center; width: 20%">Documento</th>
+            <th style="text-align: right; width: 20%">Valor (R$)</th>
+        </thead>
+        <tbody>
+            {% for d in dsDespesa %}
+            <tr>
+                <td>{{ d.conta }}</td>
+                <td style="text-align: center; ">{{ d.data|date:"d/m/Y" }} </td>
+                <td style="text-align: right;">{{ d.documento }}</td>
+                <td style="text-align: right;">{{ d.valor }}</td>
+            </tr>
+            {% endfor %}
+            <tr style="background: #555; color: white">
+                <td></td>
+                <td style="text-align: center; "></td>
+                <td style="text-align: right;">Sub-total: </td>
+                <td style="text-align: right;">
+                    RS {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
+                </td>
+            </tr>
+       </tbody>
+    </table>
+    {% endif %}
+
+    <br><br>
+
+    <h1 style="page-break-before: always" >Quadro Resumo:</h1>
     <table class="bordada">
         <thead>
             <th style="width: 50%; padding-left:1.0em; font-size:1.5rem;">Natureza</th>

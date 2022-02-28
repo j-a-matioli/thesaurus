@@ -93,9 +93,11 @@ def bal_analitico_pdf(_mes, _ano):
         .annotate(total=Sum('valor')) \
         .order_by('conta__categoria__nome')
 
-    context['lancamentos'] = dataSet
+    # context['lancamentos'] = dataSet
     context['nreg'] = dataSet.count()
+    context['dsReceita'] = setReceita
     context['totalReceita'] = totalReceita
+    context['dsDespesa'] = setDespesa
     context['totalDespesa'] = totalDespesa
     context['totalSaldo'] = totalSaldo
     context['sumario'] = sumario
