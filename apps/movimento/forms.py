@@ -12,7 +12,7 @@ from apps.meiopagamento.models import MeioPagamento
 class MovimentoForm(forms.ModelForm):
     competencia = forms.ModelChoiceField(queryset=Fechamento)
     conta = forms.ModelChoiceField(queryset=Conta)
-    data = forms.DateField(label='', help_text='', attrs={'id': 'id_data', 'class': 'form-control', 'placeholder': 'Data do pagamento'})
+    data = forms.DateField(label='', help_text='', attrs={'id': 'id_data',  'class': 'form-control disabled', 'placeholder': 'Data do pagamento'})
     meiopagamento = forms.ModelChoiceField(queryset=MeioPagamento)
     documento = forms.TextInput(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nr. Documento'}))
 

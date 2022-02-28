@@ -11,13 +11,13 @@ from .filters import MovimentoFilter
 
 class MovimentoList(ListView):
     model = Movimento
-    fields = ['conta', 'data', 'documento' , 'valor','meiopagamento', 'observ']
+    fields = ['competencia', 'conta', 'data', 'documento' , 'valor', 'meiopagamento', 'observ']
     template_name = 'list_movimento'
     ordering = ['-data']
     agora = datetime.now()
     year = agora.year.__str__()
     month = agora.month.__str__()
-    
+
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
@@ -53,13 +53,13 @@ class MovimentoList(ListView):
         else:
             totalSaldo = 0.0
 
-        
         context['totalReceita'] = totalReceita
         context['totalDespesa'] = totalDespesa
         context['totalSaldo'] = totalSaldo
         context['mes'] = filtro_mes
         context['ano'] = filtro_ano
         context['data_full'] = self.request.session['data_full']
+
         if(setAll):
             context['dados'] = MovimentoFilter(self.request.GET, queryset=setAll)
         else:
@@ -78,7 +78,7 @@ class MovimentoCreate(CreateView):
     fields = '__all__'
     exclude = ['id']
     success_url = reverse_lazy("create_movimento")
-    
+
     def __int__(self):
         self.request.session['ano_corrente'] = self.year
         self.request.session['mes_corrente'] = self.month
@@ -113,6 +113,8 @@ class MovimentoUpdate(UpdateView):
         context['mes_corrente'] = self.request.session['mes_corrente']
         context['ano_corrente'] = self.request.session['ano_corrente']
         context['data_full'] = date(int(self.request.session['ano_corrente']), int(self.request.session['mes_corrente'] ), 1)
+        print("MES CORRENTE = ", context['mes_corrente'] )
+        print("ANO CORRENTE = ", context['ano_corrente'] )
         return context
 
     def form_valid(self, form):

@@ -12,8 +12,8 @@ class FechamentoForm(forms.ModelForm):
           
      class Meta:
           model = Fechamento
-          fields = '__all__'  # ('entradas', 'saidas',)
-          exclude = ('id','data','saldo')
+          fields = '__all__'
+          exclude = ('id', 'data', 'saldo')
           
          
         
