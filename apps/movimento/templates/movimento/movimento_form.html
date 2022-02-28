@@ -18,8 +18,14 @@
    <script>
         $(function () {
 
+            var FirstDay = new Date({{ ano_corrente }}, {{ mes_corrente }}, 1);
+            var LastDay = new Date({{ ano_corrente }}, {{ mes_corrente }}+1, 0);
+
+            console.log(FirstDay, LastDay)
+
             min_Date = new Date( {{ ano_corrente }}, {{ mes_corrente }} - 1, 1)
-            max_Date = new Date( {{ ano_corrente }}, {{ mes_corrente }} - 1, 28)
+            max_Date = new Date( {{ ano_corrente }}, {{ mes_corrente }}, LastDay.getDay()-1)
+
 
             console.log(min_Date, max_Date)
 
