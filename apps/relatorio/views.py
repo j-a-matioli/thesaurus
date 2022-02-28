@@ -69,6 +69,7 @@ from apps.relatorio.forms import TelaRelatoriosForm
 def bal_analitico_pdf(_mes, _ano):
     model = Movimento
     template_name = 'relatorio/relatorio_analitico_pdf.html'
+    pdf_dest_name = 'balancete_analitico.pdf'
     ano_corrente = _ano
     mes_corrente = _mes
     context = {}
@@ -104,9 +105,9 @@ def bal_analitico_pdf(_mes, _ano):
 
     html_string = render_to_string(template_name, context)
     html = HTML(string=html_string)
-    html.write_pdf(target='balancete_analitico.pdf');
+    html.write_pdf(target=pdf_dest_name);
     fs = FileSystemStorage()
-    with fs.open('balancete_analitico.pdf') as pdf:
+    with fs.open(pdf_dest_name) as pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="balancete_analitico.pdf"'
 
@@ -116,6 +117,7 @@ def bal_analitico_pdf(_mes, _ano):
 def bal_sintetico_pdf(_mes, _ano):
     model = Movimento
     template_name = 'relatorio/balancete_sintetico_pdf.html'
+    pdf_dest_name = 'balancete_sintetico.pdf'
     ano_corrente = _ano
     mes_corrente = _mes
     context={};
@@ -138,10 +140,10 @@ def bal_sintetico_pdf(_mes, _ano):
     print(context['mes_corrente'],'/',context['ano_corrente'])
     html_string = render_to_string(template_name, context)
     html = HTML(string=html_string)
-    html.write_pdf(target='balancete_sintetico.pdf');
+    html.write_pdf(target=pdf_dest_name);
 
     fs = FileSystemStorage()
-    with fs.open('balancete_sintetico.pdf') as pdf:
+    with fs.open(pdf_dest_name) as pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="balancete_sintetico.pdf"'
 

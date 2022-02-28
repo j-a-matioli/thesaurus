@@ -9,7 +9,7 @@ class Movimento(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     competencia = models.ForeignKey(Fechamento,on_delete=models.PROTECT)
     conta = models.ForeignKey(Conta, on_delete=models.PROTECT)
-    data = models.fields.DateField()
+    data = models.DateField(blank=False)
     valor = models.DecimalField(max_digits=13, decimal_places=2)
     meiopagamento = models.ForeignKey(MeioPagamento, on_delete=models.PROTECT)
     documento = models.CharField(max_length=50, blank=True, null=False)
