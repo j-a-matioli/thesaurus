@@ -17,17 +17,10 @@
 
    <script>
         $(function () {
+            min_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}, 1);
+            max_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}+1, 0);
 
-            var FirstDay = new Date({{ ano_corrente }}, {{ mes_corrente }}, 1);
-            var LastDay = new Date({{ ano_corrente }}, {{ mes_corrente }}+1, 0);
-
-            console.log(FirstDay, LastDay)
-
-            min_Date = new Date( {{ ano_corrente }}, {{ mes_corrente }} - 1, 1)
-            max_Date = new Date( {{ ano_corrente }}, {{ mes_corrente }}, LastDay.getDay()-1)
-
-
-            console.log(min_Date, max_Date)
+            console.log(min_Date, max_Date);
 
             $("#id_data").datepicker({
                 dateFormat: 'dd/mm/yy',
