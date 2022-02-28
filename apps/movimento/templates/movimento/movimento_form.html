@@ -17,8 +17,8 @@
 
    <script>
         $(function () {
-            min_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}, 1);
-            max_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}+1, 0);
+            min_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}-1, 1);
+            max_Date = new Date({{ ano_corrente }}, {{ mes_corrente }}, 0);
 
             console.log(min_Date, max_Date);
 
