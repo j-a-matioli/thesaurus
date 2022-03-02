@@ -3,7 +3,7 @@
 {% block main %}
 <form method="post">
     {% csrf_token %}
-    <h1>Tem certeza que deseja deletar [{{ fechamento.mes }}/{{ fechamento.ano|unlocalize }}] ?</h1>
+    <h1>Tem certeza que deseja deletar [{{ fechamento|unlocalize }}] ?</h1>
     {{ form }}
     <button type="submit" class="btn btn-main btn-danger">Confirmar</button>
     <a href="{% url 'list_fechamento' %}" class="btn btn-success">Cancelar</a>
