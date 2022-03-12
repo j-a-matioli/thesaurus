@@ -22,14 +22,22 @@
             margin: 10mm;
             /* Set margin on each page */
         }
-        table { 
-            width: 100%
+        table {
+            width: 100%;
         }
+
+        tr{page-break-inside: avoid;
+           page-break-after: auto;}
+
         table.bordada th{
             background: #555;
             color:white;
             height: 1cm;
             padding: 0.2rem;
+        }
+
+        .corpo_relatorio{
+            font-size: 12px;
         }
 
         .rodape_total{
