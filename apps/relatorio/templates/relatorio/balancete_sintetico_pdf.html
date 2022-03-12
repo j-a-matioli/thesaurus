@@ -13,13 +13,13 @@ Balancete Sintético
 
 {% block main %}
     <h2>BALANCETE SINTÉTICO - Competência {{ mes_corrente|intcomma}}/{{ ano_corrente }}</h2>
-    {% if sumario %}
+    {% if dsReceita %}
         <table class="bordada" >
             <thead>
-                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">Tipo de Receita/Despesa</th>
+                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">RECEITAS</th>
                 <th style="text-align: right; width: 40%; padding-right:1.0em;  font-size:1.5rem;">Valor (R$)</th>
             </thead>
-            {% for s in sumario %}
+            {% for s in dsReceita %}
             <tr>
                 <td style="padding-left:1.0em;  font-size:1.5rem;" >
                     {{ s.conta__categoria__nome }}
@@ -29,6 +29,41 @@ Balancete Sintético
                 </td>
             </tr>
             {% endfor %}
+            <tr class="rodape_total">
+                <td style="padding-left:1.0em;  font-size:1.5rem;" >
+                    TOTAL RECEITAS
+                </td>
+                <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
+                   R$ {{ totalReceita|floatformat:2|intcomma }}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+
+   {% if dsDespesa %}
+        <table class="bordada" style="page-break-before: always" >
+            <thead>
+                <th style="width: 60%; padding-left:1.0em; font-size:1.5rem;">DESPESAS</th>
+                <th style="text-align: right; width: 40%; padding-right:1.0em;  font-size:1.5rem;">Valor (R$)</th>
+            </thead>
+            {% for s in dsDespesa %}
+            <tr>
+                <td style="padding-left:1.0em;  font-size:1.5rem;" >
+                    {{ s.conta__categoria__nome }}
+                </td>
+                <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
+                   R$ {{ s.total|floatformat:2|intcomma }}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr class="rodape_total">
+                <td style="padding-left:1.0em;  font-size:1.5rem;" >
+                    TOTAL DESPESAS
+                </td>
+                <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
+                   R$ {{ totalDespesa|floatformat:2|intcomma }}
+                </td>
+            </tr>
         </table>
     {% endif %}
 {% endblock %}
