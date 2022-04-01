@@ -34,7 +34,7 @@ Balancete Sintético
                     TOTAL RECEITAS
                 </td>
                 <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
-                   R$ {{ totalReceita|floatformat:2|intcomma }}
+                   R$ {{ totalReceita.valor__sum|floatformat:2|intcomma }}
                 </td>
             </tr>
         </table>
@@ -61,7 +61,7 @@ Balancete Sintético
                     TOTAL DESPESAS
                 </td>
                 <td style="text-align: right; padding-right:1.0em;  font-size:1.5rem;">
-                   R$ {{ totalDespesa|floatformat:2|intcomma }}
+                   R$ {{ totalDespesa.valor__sum|floatformat:2|intcomma }}
                 </td>
             </tr>
         </table>

@@ -68,22 +68,28 @@ def bal_sintetico_pdf(_mes, _ano):
     mes_corrente = _mes
     context = {}
 
-    setReceita = model.objects.filter(conta__categoria__tipo=1).filter(data__year=ano_corrente).filter(
-        data__month=mes_corrente).values('conta__categoria__nome') \
+    setReceita = model.objects.filter(data__year=ano_corrente) \
+        .filter(data__month=mes_corrente) \
+        .filter(conta__categoria__tipo=1)
+
+    sumarioReceita = setReceita.values('conta__categoria__nome') \
         .annotate(total=Sum('valor')) \
         .order_by('conta__categoria__nome')
 
-    setDespesa = model.objects.filter(conta__categoria__tipo=2).filter(data__year=ano_corrente).filter(
-        data__month=mes_corrente).values('conta__categoria__nome') \
+    setDespesa = model.objects.filter(data__year=ano_corrente).filter(
+        data__month=mes_corrente).filter(conta__categoria__tipo=2)
+
+    sumarioDespesa = setDespesa.values('conta__categoria__nome') \
         .annotate(total=Sum('valor')) \
         .order_by('conta__categoria__nome')
 
-    totalReceita = setReceita.aggregate(Sum('valor')).get("valor__sum")
-    totalDespesa = setDespesa.aggregate(Sum('valor')).get("valor__sum")
+    totalReceita = setReceita.aggregate(Sum('valor'))
+    totalDespesa = setDespesa.aggregate(Sum('valor'))
 
-    context['dsReceita'] = setReceita
+
+    context['dsReceita'] = sumarioReceita
     context['totalReceita'] = totalReceita
-    context['dsDespesa'] = setDespesa
+    context['dsDespesa'] = sumarioDespesa
     context['totalDespesa'] = totalDespesa
     context['mes_corrente'] = mes_corrente
     context['ano_corrente'] = ano_corrente
